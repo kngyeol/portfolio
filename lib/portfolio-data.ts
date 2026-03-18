@@ -148,6 +148,7 @@ export interface Project {
   category: string
   github?: string
   metrics?: string[]
+  status: "completed" | "in-progress" | "planned"
 }
 
 export const categories = [
@@ -193,6 +194,7 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/balemale",
     metrics: ["18개 FSM 상태", "28개 ArUco 마커", "12개 주차 슬롯"],
+    status: "completed",
   },
   {
     id: 2,
@@ -214,6 +216,7 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamKAI",
     metrics: ["18개 FSM", "센서 5종 융합"],
+    status: "completed",
   },
   {
     id: 3,
@@ -234,6 +237,7 @@ export const projects: Project[] = [
     techStack: ["Python", "OpenCV", "MQTT", "UART/Modbus", "PCA9685 PWM", "Raspberry Pi 5", "ToF Sensor"],
     category: "자율주행 / 로봇",
     metrics: ["5개 노드", "3가지 주행 모드"],
+    status: "completed",
   },
   {
     id: 4,
@@ -253,6 +257,7 @@ export const projects: Project[] = [
     techStack: ["ROS Noetic", "Python 3", "OpenCV", "NumPy", "Pygame"],
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamPathfinders",
+    status: "completed",
   },
 
   // ===== AI / 컴퓨터비전 =====
@@ -276,6 +281,7 @@ export const projects: Project[] = [
     category: "AI / 컴퓨터비전",
     github: "https://github.com/kngyeol/pjt-fire-detect-drone",
     metrics: ["mAP50 0.867", "P 0.834", "R 0.821"],
+    status: "completed",
   },
   {
     id: 6,
@@ -304,6 +310,7 @@ export const projects: Project[] = [
     ],
     category: "AI / 컴퓨터비전",
     metrics: ["5개 실험 전략", "다국어 지원"],
+    status: "completed",
   },
   {
     id: 7,
@@ -323,6 +330,7 @@ export const projects: Project[] = [
     role: ["Frontend", "DevOps"],
     techStack: ["React", "React Native", "Spring Boot", "YOLO-World", "BioCLIP", "Docker", "Jenkins", "AWS SQS"],
     category: "AI / 컴퓨터비전",
+    status: "in-progress",
   },
   {
     id: 8,
@@ -343,6 +351,7 @@ export const projects: Project[] = [
     category: "AI / 컴퓨터비전",
     github: "https://github.com/kngyeol/smart-menu-board-scanner",
     metrics: ["101종 음식 분류", "한/영 OCR"],
+    status: "completed",
   },
 
   // ===== 웹 / 풀스택 =====
@@ -366,6 +375,7 @@ export const projects: Project[] = [
     techStack: ["React 19", "TypeScript", "Zustand", "React Flow", "math.js", "Vitest"],
     category: "웹 / 풀스택",
     metrics: ["141개 테스트", "25개 부품", "10개 ERC 규칙"],
+    status: "completed",
   },
   {
     id: 10,
@@ -386,6 +396,7 @@ export const projects: Project[] = [
     category: "웹 / 풀스택",
     github: "https://github.com/kngyeol/devtools-kr",
     metrics: ["33개 도구", "20개 섹션"],
+    status: "in-progress",
   },
   {
     id: 11,
@@ -404,6 +415,7 @@ export const projects: Project[] = [
     role: ["Frontend"],
     techStack: ["Vue 3", "Firebase Firestore", "Chart.js", "Vite"],
     category: "웹 / 풀스택",
+    status: "completed",
   },
 
   // ===== 임베디드 / FPGA =====
@@ -426,6 +438,7 @@ export const projects: Project[] = [
     techStack: ["STM32", "FreeRTOS", "CAN", "HAL", "Python", "python-can"],
     category: "임베디드 / FPGA",
     metrics: ["10개 태스크", "7개 CAN 메시지", "CAN 이중화"],
+    status: "in-progress",
   },
   {
     id: 13,
@@ -445,5 +458,6 @@ export const projects: Project[] = [
     techStack: ["Vivado", "Verilog", "Xilinx SDK", "C", "AXI DMA", "AXI4-Lite"],
     category: "임베디드 / FPGA",
     github: "https://github.com/kngyeol/resnet50-mac-accelerator",
+    status: "completed",
   },
 ]

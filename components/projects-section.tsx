@@ -135,6 +135,11 @@ function ProjectCard({
       {/* Header area with category color bar */}
       <div className="relative h-2 w-full bg-primary/20">
         <div className="absolute inset-y-0 left-0 w-1/3 bg-primary/60" />
+        {project.status === "in-progress" && (
+          <span className="absolute right-2 top-3 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-semibold text-white">
+            개발중
+          </span>
+        )}
       </div>
 
       <div className="p-6">
