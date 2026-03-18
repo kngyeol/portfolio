@@ -12,6 +12,7 @@ import {
   Calendar,
   Building2,
   Users,
+  Github,
 } from "lucide-react"
 import { projects, categories, type Project } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer, scaleIn } from "@/lib/animations"
@@ -49,6 +50,9 @@ export function ProjectsSection() {
           <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
             프로젝트
           </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            총 {projects.length}개의 프로젝트
+          </p>
         </motion.div>
 
         {/* Category tabs */}
@@ -59,27 +63,33 @@ export function ProjectsSection() {
           variants={fadeInUp}
           className="mt-8 flex flex-wrap gap-2"
         >
-          {categories.map((cat) => (
-            <button
-              key={cat.name}
-              onClick={() => setActiveCategory(cat.name)}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
-                activeCategory === cat.name
-                  ? "bg-primary text-primary-foreground shadow-[0_0_16px_rgba(6,182,212,0.2)]"
-                  : "border border-border bg-secondary text-secondary-foreground hover:border-primary/30 hover:text-primary"
-              }`}
-            >
-              {categoryIconMap[cat.name]}
-              {cat.name}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const count =
+              cat.name === "전체"
+                ? projects.length
+                : projects.filter((p) => p.category === cat.name).length
+            return (
+              <button
+                key={cat.name}
+                onClick={() => setActiveCategory(cat.name)}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
+                  activeCategory === cat.name
+                    ? "bg-primary text-primary-foreground shadow-[0_0_16px_rgba(6,182,212,0.2)]"
+                    : "border border-border bg-secondary text-secondary-foreground hover:border-primary/30 hover:text-primary"
+                }`}
+              >
+                {categoryIconMap[cat.name]}
+                {cat.name}
+                <span className="ml-1 rounded-full bg-background/20 px-1.5 py-0.5 text-[10px]">
+                  {count}
+                </span>
+              </button>
+            )
+          })}
         </motion.div>
 
         {/* Project cards */}
-        <motion.div
-          layout
-          className="mt-10 grid gap-5 sm:grid-cols-2"
-        >
+        <motion.div layout className="mt-10 grid gap-5 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <ProjectCard
@@ -139,8 +149,22 @@ function ProjectCard({
               </p>
             )}
           </div>
-          <div className="shrink-0 flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all group-hover:border-primary group-hover:text-primary">
-            <ArrowUpRight size={14} />
+          <div className="flex shrink-0 items-center gap-2">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:border-primary hover:text-primary"
+                aria-label="GitHub 저장소"
+              >
+                <Github size={14} />
+              </a>
+            )}
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all group-hover:border-primary group-hover:text-primary">
+              <ArrowUpRight size={14} />
+            </div>
           </div>
         </div>
 
@@ -161,7 +185,8 @@ function ProjectCard({
           {project.role.length > 0 && (
             <span className="inline-flex items-center gap-1">
               <Users size={12} />
-              {project.role.join(", ")}
+              {project.role.slice(0, 2).join(", ")}
+              {project.role.length > 2 && ` +${project.role.length - 2}`}
             </span>
           )}
         </div>
@@ -169,6 +194,20 @@ function ProjectCard({
         <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {project.description}
         </p>
+
+        {/* Metrics badges */}
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {project.metrics.slice(0, 2).map((metric, i) => (
+              <span
+                key={i}
+                className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500"
+              >
+                {metric}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Tech tags */}
         <div className="mt-4 flex flex-wrap gap-1.5">

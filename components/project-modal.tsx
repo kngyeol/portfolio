@@ -8,6 +8,9 @@ import {
   Building2,
   Users,
   CheckCircle2,
+  Github,
+  ExternalLink,
+  BarChart3,
 } from "lucide-react"
 import type { Project } from "@/lib/portfolio-data"
 
@@ -28,6 +31,15 @@ export function ProjectModal({
       document.body.style.overflow = ""
     }
   }, [project])
+
+  // ESC key to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [onClose])
 
   const techList = project
     ? Array.isArray(project.techStack)
@@ -101,10 +113,46 @@ export function ProjectModal({
                 )}
               </div>
 
+              {/* GitHub Link */}
+              {project.github && (
+                <div className="mt-4">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary hover:text-primary"
+                  >
+                    <Github size={16} />
+                    GitHub 저장소
+                    <ExternalLink size={14} className="opacity-60" />
+                  </a>
+                </div>
+              )}
+
               {/* Description */}
               <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
                 {project.description}
               </p>
+
+              {/* Metrics */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <BarChart3 size={15} className="text-primary" />
+                    핵심 지표
+                  </h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.metrics.map((metric, i) => (
+                      <span
+                        key={i}
+                        className="rounded-lg bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary"
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Highlights */}
               <div className="mt-8">

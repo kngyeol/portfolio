@@ -7,7 +7,7 @@ import {
   Cpu,
   Server,
   Monitor,
-  Wrench,
+  Radio,
 } from "lucide-react"
 import { skills } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
@@ -16,14 +16,14 @@ const categoryIcons: Record<string, React.ReactNode> = {
   "자율주행/로봇": <Bot size={18} />,
   "딥러닝/AI": <BrainCircuit size={18} />,
   "FPGA/임베디드": <Cpu size={18} />,
+  통신: <Radio size={18} />,
   백엔드: <Server size={18} />,
   프론트엔드: <Monitor size={18} />,
-  기타: <Wrench size={18} />,
 }
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="px-6 py-24 lg:py-32">
+    <section id="skills" className="px-6 py-24 lg:py-32 bg-secondary/30">
       <div className="mx-auto max-w-5xl">
         <motion.div
           initial="hidden"
