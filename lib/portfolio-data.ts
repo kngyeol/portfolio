@@ -135,8 +135,21 @@ export const certificates: Certificate[] = [
   { id: 2, name: "OPIc", score: "IM2", date: "2025.02" },
 ]
 
+export interface ProjectImage {
+  src: string
+  alt: string
+  caption?: string
+}
+
+export interface ProjectSection {
+  type: "flowchart" | "table" | "text" | "code"
+  title: string
+  content: unknown
+}
+
 export interface Project {
   id: number
+  slug: string
   title: string
   subtitle: string
   period: string
@@ -149,6 +162,11 @@ export interface Project {
   github?: string
   metrics?: string[]
   status: "completed" | "in-progress" | "planned"
+  heroImage?: string
+  images?: ProjectImage[]
+  sections?: ProjectSection[]
+  troubleshooting?: string[]
+  futureWork?: string[]
 }
 
 export const categories = [
@@ -163,6 +181,7 @@ export const projects: Project[] = [
   // ===== 자율주행 / 로봇 =====
   {
     id: 1,
+    slug: "balemale",
     title: "Balemale - AI 스마트 자율 주차 로봇",
     subtitle: "SSAFY 자율 프로젝트",
     period: "2026.01 - 2026.02",
@@ -198,6 +217,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
+    slug: "teamkai",
     title: "TeamKAI - 자율주행 자작차",
     subtitle: "인지 파트장",
     period: "2023.11 - 2024.11",
@@ -220,6 +240,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
+    slug: "aras",
     title: "ARAS - RC Car ADAS 시스템",
     subtitle: "Advanced RCcar Assist System",
     period: "2025.08 - 2025.09",
@@ -241,6 +262,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
+    slug: "pathfinders",
     title: "TeamPathfinders - Xycar 자율주행",
     subtitle: "1/10 스케일 자율주행",
     period: "2024.07 - 2024.08",
@@ -263,6 +285,7 @@ export const projects: Project[] = [
   // ===== AI / 컴퓨터비전 =====
   {
     id: 5,
+    slug: "fire-detection-drone",
     title: "Fire & Smoke Detection Drone",
     subtitle: "졸업 프로젝트",
     period: "2024.03 - 2024.06",
@@ -285,6 +308,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
+    slug: "korean-vqa",
     title: "SSAFY AI Challenge - Korean VQA",
     subtitle: "VLM 기반 4지선다 VQA",
     period: "2026.02 - 2026.03",
@@ -314,6 +338,7 @@ export const projects: Project[] = [
   },
   {
     id: 7,
+    slug: "divery",
     title: "Divery - 다이빙 로그북 AI 생성",
     subtitle: "SSAFY 특화 프로젝트",
     period: "2026.01 - 2026.02",
@@ -334,6 +359,7 @@ export const projects: Project[] = [
   },
   {
     id: 8,
+    slug: "menu-scanner",
     title: "Smart Menu Board Scanner",
     subtitle: "음식 분류 + 메뉴판 OCR",
     period: "2024.01 - 2024.02",
@@ -357,6 +383,7 @@ export const projects: Project[] = [
   // ===== 웹 / 풀스택 =====
   {
     id: 9,
+    slug: "circuitforge",
     title: "CircuitForge",
     subtitle: "텍스트→회로도 변환 에디터",
     period: "2025.10 - 2025.12",
@@ -379,6 +406,7 @@ export const projects: Project[] = [
   },
   {
     id: 10,
+    slug: "developers-kr",
     title: "Developers.kr",
     subtitle: "개발자 도구/가이드 포털",
     period: "2025.11 - 2025.12",
@@ -400,6 +428,7 @@ export const projects: Project[] = [
   },
   {
     id: 11,
+    slug: "ivi-dashboard",
     title: "IVI Dashboard",
     subtitle: "차량 인포테인먼트 데이터 시각화",
     period: "2025.08",
@@ -421,6 +450,7 @@ export const projects: Project[] = [
   // ===== 임베디드 / FPGA =====
   {
     id: 12,
+    slug: "can-multiecu-hils",
     title: "CAN MultiECU HILS",
     subtitle: "CAN 이중화 검증 플랫폼",
     period: "2025.09 - 2025.10",
@@ -442,6 +472,7 @@ export const projects: Project[] = [
   },
   {
     id: 13,
+    slug: "resnet50-accelerator",
     title: "ResNet50 MAC Accelerator",
     subtitle: "FPGA CNN 추론 가속기",
     period: "2023.09 - 2023.12",
@@ -461,3 +492,12 @@ export const projects: Project[] = [
     status: "completed",
   },
 ]
+
+// Utility functions
+export function getProjectBySlug(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug)
+}
+
+export function getAllProjectSlugs(): string[] {
+  return projects.map((p) => p.slug)
+}

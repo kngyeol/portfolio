@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 import {
   Bot,
   BrainCircuit,
@@ -15,8 +16,7 @@ import {
   Github,
 } from "lucide-react"
 import { projects, categories, type Project } from "@/lib/portfolio-data"
-import { fadeInUp, staggerContainer, scaleIn } from "@/lib/animations"
-import { ProjectModal } from "./project-modal"
+import { fadeInUp, scaleIn } from "@/lib/animations"
 
 const categoryIconMap: Record<string, React.ReactNode> = {
   전체: <Layers size={16} />,
@@ -28,7 +28,6 @@ const categoryIconMap: Record<string, React.ReactNode> = {
 
 export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState("전체")
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   const filtered =
     activeCategory === "전체"
@@ -92,32 +91,16 @@ export function ProjectsSection() {
         <motion.div layout className="mt-10 grid gap-5 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onClick={() => setSelectedProject(project)}
-              />
+              <ProjectCard key={project.id} project={project} />
             ))}
           </AnimatePresence>
         </motion.div>
-
-        {/* Detail modal */}
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
       </div>
     </section>
   )
 }
 
-function ProjectCard({
-  project,
-  onClick,
-}: {
-  project: Project
-  onClick: () => void
-}) {
+function ProjectCard({ project }: { project: Project }) {
   const techList = Array.isArray(project.techStack)
     ? project.techStack
     : [...Object.values(project.techStack).flat()]
@@ -129,9 +112,9 @@ function ProjectCard({
       initial="hidden"
       animate="visible"
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-      onClick={onClick}
-      className="group cursor-pointer overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]"
+      className="group overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]"
     >
+      <Link href={`/projects/${project.slug}`} className="block cursor-pointer">
       {/* Header area with category color bar */}
       <div className="relative h-2 w-full bg-primary/20">
         <div className="absolute inset-y-0 left-0 w-1/3 bg-primary/60" />
@@ -231,6 +214,7 @@ function ProjectCard({
           )}
         </div>
       </div>
+      </Link>
     </motion.article>
   )
 }
