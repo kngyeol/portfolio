@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props) {
   if (!project) return { title: "Gallery Not Found" }
   return {
     title: `${project.title} 갤러리 | 김동열 포트폴리오`,
-    description: `${project.title} 프로젝트 이미지 갤러리`,
+    description: `${project.title} 프로젝트 미디어 갤러리`,
   }
 }
 

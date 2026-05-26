@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import Image from "next/image"
 import {
   ArrowLeft,
   Calendar,
@@ -14,12 +13,17 @@ import {
   BarChart3,
   Images,
 } from "lucide-react"
-import type { Project } from "@/lib/portfolio-data"
+import {
+  getProjectHeroMedia,
+  getProjectMedia,
+  type Project,
+} from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 import { ImageGallery } from "./image-gallery"
 import { HighlightBox } from "./highlight-box"
 import { ProjectFlowchart } from "./project-flowchart"
 import { ProjectTable } from "./project-table"
+import { ProjectMediaPreview } from "./project-media"
 
 interface ProjectDetailClientProps {
   project: Project
@@ -30,7 +34,9 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
     ? project.techStack
     : [...Object.values(project.techStack).flat()]
 
-  const hasGallery = project.images && project.images.length > 0
+  const media = getProjectMedia(project)
+  const heroMedia = getProjectHeroMedia(project)
+  const hasGallery = media.length > 0
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,16 +62,10 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
         </div>
       </header>
 
-      {/* Hero Image */}
+      {/* Hero Media */}
       <section className="relative h-[40vh] w-full overflow-hidden bg-gradient-to-br from-primary/20 via-background to-background sm:h-[50vh]">
-        {project.heroImage ? (
-          <Image
-            src={project.heroImage}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
+        {heroMedia ? (
+          <ProjectMediaPreview media={heroMedia} variant="hero" priority />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <div className="text-center">
@@ -74,11 +74,11 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                   {project.title.charAt(0)}
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground">Hero Image Placeholder</p>
+              <p className="text-sm text-muted-foreground">{project.category}</p>
             </div>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
       </section>
 
       {/* Content */}
@@ -230,7 +230,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             {/* Image Gallery */}
             {hasGallery && (
               <ImageGallery
-                images={project.images!}
+                media={media}
                 projectSlug={project.slug}
                 maxPreview={4}
               />

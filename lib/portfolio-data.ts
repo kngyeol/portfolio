@@ -1,9 +1,16 @@
+export const siteConfig = {
+  url: "https://kngyeol-portfolio.vercel.app",
+  title: "김동열 | Robotics & Autonomous Driving Portfolio",
+  description:
+    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증과 AI 컴퓨터비전을 다루는 김동열의 포트폴리오입니다.",
+} as const
+
 export const profile = {
   name: "김동열",
   nameEn: "Kim Dongyeol",
-  title: "자율주행 / AI / 임베디드 엔지니어",
+  title: "Robotics / Autonomous Driving / Embedded AI Engineer",
   summary:
-    "Skyautonet 자율주행 인턴 출신. ROS2/Autoware 기반 인지-판단-제어 파이프라인과 CAN 통신, HILS 검증 경험. AI(CV)부터 임베디드, 백엔드까지 시스템 단위로 통합 가능한 엔지니어.",
+    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증을 경험했습니다. LLM 명령 브리지부터 센서·제어·운영 도구까지 실제 시스템이 움직이도록 통합하는 데 강점이 있습니다.",
   contact: {
     email: "kngyeol@gmail.com",
     github: "https://github.com/kngyeol",
@@ -15,11 +22,14 @@ export const skills: Record<string, string[]> = {
   "자율주행/로봇": [
     "ROS",
     "ROS2",
+    "Nav2",
     "Autoware",
+    "SLAM Toolbox",
     "Kalman Filter",
     "PID",
     "Lanelet2",
     "ArUco",
+    "RoboCrew",
     "MQTT",
   ],
   "딥러닝/AI": [
@@ -135,10 +145,15 @@ export const certificates: Certificate[] = [
   { id: 2, name: "OPIc", score: "IM2", date: "2025.02" },
 ]
 
-export interface ProjectImage {
+export type ProjectMediaType = "image" | "video" | "document"
+
+export interface ProjectMedia {
+  type: ProjectMediaType
   src: string
   alt: string
   caption?: string
+  poster?: string
+  label?: string
 }
 
 export interface ProjectSection {
@@ -162,8 +177,10 @@ export interface Project {
   github?: string
   metrics?: string[]
   status: "completed" | "in-progress" | "planned"
+  heroMedia?: ProjectMedia
+  media?: ProjectMedia[]
   heroImage?: string
-  images?: ProjectImage[]
+  images?: ProjectMedia[]
   sections?: ProjectSection[]
   troubleshooting?: string[]
   futureWork?: string[]
@@ -179,6 +196,153 @@ export const categories = [
 
 export const projects: Project[] = [
   // ===== 자율주행 / 로봇 =====
+  {
+    id: 14,
+    slug: "scv",
+    title: "SCV - Smart Companion Vehicle",
+    subtitle: "자연어 명령 기반 이동형 AI 홈 어시스턴트",
+    period: "2026.05",
+    organization: "TEAM A207",
+    description:
+      "자연어 명령을 실행 가능한 주행·정렬·조작 흐름으로 변환하고, ROS2/Nav2 주행과 비전 정렬, 로봇팔 런타임을 연결한 Smart Companion Vehicle 프로젝트입니다.",
+    highlights: [
+      "RoboCrew System2 planner → System1 packet server → ROS2 drive bridge로 자연어 명령 실행 경로 구성",
+      "Nav2/AMCL/SLAM 기반 실내 주행과 motion_coordinator, trolley_motion_adapter 제어 경로 통합",
+      "Yahboom mecanum base USB serial runtime, BNO085 IMU, RPLiDAR/RealSense bringup 정리",
+      "vision alignment, AprilTag 기반 정밀 정렬, 로봇팔 runtime helper를 서비스 시나리오에 연결",
+      "stub-hardware smoke mode, web teleop, map helper로 반복 검증 가능한 시연 운영 환경 구성",
+    ],
+    role: ["Autonomous Driving", "ROS2 Integration", "LLM Drive Bridge", "Runtime Tools"],
+    techStack: [
+      "ROS2 Humble",
+      "Nav2",
+      "AMCL",
+      "SLAM Toolbox",
+      "Python",
+      "C++",
+      "RoboCrew",
+      "RealSense",
+      "RPLiDAR",
+      "BNO085",
+    ],
+    category: "자율주행 / 로봇",
+    metrics: ["ROS2/Nav2 runtime", "LLM drive bridge", "vision alignment"],
+    status: "completed",
+    heroMedia: {
+      type: "video",
+      src: "/projects/scv/scv-video-portfolio.mp4",
+      poster: "/projects/scv/scv-video-portfolio.jpg",
+      alt: "SCV video portfolio",
+      caption: "SCV video portfolio",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/projects/scv/scv-video-portfolio.mp4",
+        poster: "/projects/scv/scv-video-portfolio.jpg",
+        alt: "SCV video portfolio",
+        caption: "주행, 시뮬레이션, 하드웨어 통합 흐름을 정리한 영상 포트폴리오",
+      },
+      {
+        type: "document",
+        src: "/projects/scv/scv-presentation.pdf",
+        alt: "SCV presentation deck",
+        label: "발표자료 PDF",
+        caption: "SCV 중간 발표자료",
+      },
+    ],
+    sections: [
+      {
+        type: "flowchart",
+        title: "실행 파이프라인",
+        content: [
+          { label: "App / Voice", sublabel: "사용자 명령" },
+          { label: "RoboCrew System2", sublabel: "LLM planner" },
+          { label: "System1 Packet Server", sublabel: "실행 packet" },
+          { label: "ROS2 Drive Bridge", sublabel: "Nav2 / relative motion" },
+          { label: "Motion Adapter", sublabel: "cmd_vel / motion mode" },
+          { label: "Yahboom Runtime", sublabel: "mecanum base" },
+        ],
+      },
+      {
+        type: "table",
+        title: "핵심 패키지",
+        content: {
+          headers: ["패키지", "역할"],
+          rows: [
+            ["trolley_driver", "Yahboom UART driver, mecanum IK, encoder odom"],
+            ["trolley_nav_bringup", "Nav2, SLAM, AMCL, sensor launch"],
+            ["robocrew_ros_adapter", "RoboCrew packet drive bridge"],
+            ["motion_coordinator", "motion mode FSM과 cmd_vel 중재"],
+            ["trolley_motion_adapter", "LLM drive stack command adapter"],
+          ],
+        },
+      },
+    ],
+    troubleshooting: [
+      "CAN/F446ZE gateway는 별도 feature 단계로 분리하고, 실제 runtime 경로는 USB 직결 Yahboom base 기준으로 정리",
+      "실기 반복 튜닝의 비용을 줄이기 위해 stub-hardware smoke mode와 web teleop/map helper를 함께 구성",
+    ],
+    futureWork: ["auto initial pose", "CAN/F446ZE gateway production integration", "precision calibration 고도화"],
+  },
+  {
+    id: 15,
+    slug: "bimanual-manipulation",
+    title: "Bimanual Manipulation",
+    subtitle: "양손 로봇 조작 시나리오 영상 아카이브",
+    period: "2026.05",
+    organization: "Robotics Demo",
+    description:
+      "음료수, 치약/칫솔, 소형 물체 등 생활 물체를 대상으로 양손 조작 시나리오를 실제 영상으로 정리한 로봇 조작 포트폴리오 자료입니다.",
+    highlights: [
+      "생활 물체 유형별 양손 조작 시나리오를 영상으로 정리",
+      "음료수, 치약/칫솔, 이어버드·명찰처럼 크기와 형태가 다른 물체를 대상으로 검증",
+      "성공 장면과 보완점을 분리해 후속 실험 기록으로 확장 가능한 형태로 정리 중",
+    ],
+    role: ["Robot Manipulation", "Demo Validation"],
+    techStack: ["Robot Arm", "Bimanual Manipulation", "Scenario Validation", "Video Analysis"],
+    category: "자율주행 / 로봇",
+    metrics: ["4개 시나리오 영상"],
+    status: "in-progress",
+    heroMedia: {
+      type: "video",
+      src: "/projects/bimanual/bimanual-01.mp4",
+      poster: "/projects/bimanual/bimanual-01.jpg",
+      alt: "Bimanual manipulation demo",
+      caption: "양손 조작 시나리오 영상",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/projects/bimanual/bimanual-01.mp4",
+        poster: "/projects/bimanual/bimanual-01.jpg",
+        alt: "Bimanual manipulation scenario 1",
+        caption: "양손 조작 기본 시나리오",
+      },
+      {
+        type: "video",
+        src: "/projects/bimanual/bimanual-02.mp4",
+        poster: "/projects/bimanual/bimanual-02.jpg",
+        alt: "Bimanual manipulation drink scenario",
+        caption: "음료수 조작 시나리오",
+      },
+      {
+        type: "video",
+        src: "/projects/bimanual/bimanual-03.mp4",
+        poster: "/projects/bimanual/bimanual-03.jpg",
+        alt: "Bimanual manipulation toothpaste toothbrush scenario",
+        caption: "치약/칫솔 조작 시나리오",
+      },
+      {
+        type: "video",
+        src: "/projects/bimanual/bimanual-04.mp4",
+        poster: "/projects/bimanual/bimanual-04.jpg",
+        alt: "Bimanual manipulation small object scenario",
+        caption: "이어버드/명찰 등 소형 물체 조작 시나리오",
+      },
+    ],
+    futureWork: ["영상별 타임스탬프 설명 추가", "실패/보완점 기록 정리"],
+  },
   {
     id: 1,
     slug: "balemale",
@@ -500,4 +664,20 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getAllProjectSlugs(): string[] {
   return projects.map((p) => p.slug)
+}
+
+export function getProjectMedia(project: Project): ProjectMedia[] {
+  return project.media ?? project.images ?? []
+}
+
+export function getProjectHeroMedia(project: Project): ProjectMedia | undefined {
+  if (project.heroMedia) return project.heroMedia
+  if (project.heroImage) {
+    return {
+      type: "image",
+      src: project.heroImage,
+      alt: project.title,
+    }
+  }
+  return undefined
 }

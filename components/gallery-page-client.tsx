@@ -3,10 +3,10 @@
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowLeft, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react"
-import type { Project } from "@/lib/portfolio-data"
+import { getProjectMedia, type Project } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
+import { ProjectMediaBadge, ProjectMediaPreview } from "./project-media"
 
 interface GalleryPageClientProps {
   project: Project
@@ -14,22 +14,22 @@ interface GalleryPageClientProps {
 
 export function GalleryPageClient({ project }: GalleryPageClientProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const images = project.images || []
+  const media = getProjectMedia(project)
 
   const openLightbox = (index: number) => setLightboxIndex(index)
   const closeLightbox = () => setLightboxIndex(null)
 
   const goNext = useCallback(() => {
     if (lightboxIndex !== null) {
-      setLightboxIndex((prev) => (prev! + 1) % images.length)
+      setLightboxIndex((prev) => (prev! + 1) % media.length)
     }
-  }, [lightboxIndex, images.length])
+  }, [lightboxIndex, media.length])
 
   const goPrev = useCallback(() => {
     if (lightboxIndex !== null) {
-      setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)
+      setLightboxIndex((prev) => (prev! - 1 + media.length) % media.length)
     }
-  }, [lightboxIndex, images.length])
+  }, [lightboxIndex, media.length])
 
   useEffect(() => {
     if (lightboxIndex !== null) {
@@ -66,7 +66,7 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
             {project.title}
           </Link>
           <span className="text-sm text-muted-foreground">
-            {images.length}개 이미지
+            {media.length}개 미디어
           </span>
         </div>
       </header>
@@ -80,10 +80,10 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
           className="mb-8"
         >
           <h1 className="text-2xl font-bold text-foreground">{project.title}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">프로젝트 이미지 갤러리</p>
+          <p className="mt-2 text-sm text-muted-foreground">프로젝트 미디어 갤러리</p>
         </motion.div>
 
-        {images.length === 0 ? (
+        {media.length === 0 ? (
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -91,7 +91,7 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
             className="flex h-64 items-center justify-center rounded-xl border border-dashed border-border"
           >
             <p className="text-sm text-muted-foreground">
-              아직 등록된 이미지가 없습니다.
+              아직 등록된 미디어가 없습니다.
             </p>
           </motion.div>
         ) : (
@@ -101,25 +101,21 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
             animate="visible"
             className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {images.map((image, i) => (
+            {media.map((item, i) => (
               <motion.button
                 key={i}
                 variants={fadeInUp}
                 onClick={() => openLightbox(i)}
                 className="group relative aspect-video overflow-hidden rounded-xl border border-border bg-secondary transition-all hover:border-primary/50 hover:shadow-lg"
               >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform group-hover:scale-105"
-                />
+                <ProjectMediaPreview media={item} />
+                <ProjectMediaBadge media={item} />
                 <div className="absolute inset-0 flex items-center justify-center bg-background/60 opacity-0 transition-opacity group-hover:opacity-100">
                   <ZoomIn size={32} className="text-primary" />
                 </div>
-                {image.caption && (
+                {item.caption && (
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-3">
-                    <p className="text-xs text-foreground">{image.caption}</p>
+                    <p className="text-xs text-foreground">{item.caption}</p>
                   </div>
                 )}
               </motion.button>
@@ -130,7 +126,7 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxIndex !== null && images.length > 0 && (
+        {lightboxIndex !== null && media.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -152,7 +148,7 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
                 goPrev()
               }}
               className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-              aria-label="Previous image"
+              aria-label="Previous media"
             >
               <ChevronLeft size={20} />
             </button>
@@ -163,7 +159,7 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
                 goNext()
               }}
               className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-              aria-label="Next image"
+              aria-label="Next media"
             >
               <ChevronRight size={20} />
             </button>
@@ -174,23 +170,26 @@ export function GalleryPageClient({ project }: GalleryPageClientProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="relative max-h-[85vh] max-w-[90vw]"
+              className={
+                media[lightboxIndex].type === "image"
+                  ? "relative max-h-[85vh] max-w-[90vw]"
+                  : media[lightboxIndex].type === "document"
+                    ? "relative h-[85vh] w-[90vw] max-w-5xl"
+                    : "relative aspect-video w-[90vw] max-w-5xl"
+              }
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={images[lightboxIndex].src}
-                alt={images[lightboxIndex].alt}
-                width={1600}
-                height={1000}
-                className="max-h-[85vh] w-auto rounded-lg object-contain"
+              <ProjectMediaPreview
+                media={media[lightboxIndex]}
+                variant="lightbox"
               />
-              {images[lightboxIndex].caption && (
+              {media[lightboxIndex].caption && (
                 <p className="mt-3 text-center text-sm text-muted-foreground">
-                  {images[lightboxIndex].caption}
+                  {media[lightboxIndex].caption}
                 </p>
               )}
               <p className="mt-2 text-center text-xs text-muted-foreground">
-                {lightboxIndex + 1} / {images.length}
+                {lightboxIndex + 1} / {media.length}
               </p>
             </motion.div>
           </motion.div>

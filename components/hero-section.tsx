@@ -69,11 +69,13 @@ export function HeroSection() {
             icon={<Github size={18} />}
             label="GitHub"
           />
-          <SocialLink
-            href={profile.contact.linkedin}
-            icon={<Linkedin size={18} />}
-            label="LinkedIn"
-          />
+          {profile.contact.linkedin && (
+            <SocialLink
+              href={profile.contact.linkedin}
+              icon={<Linkedin size={18} />}
+              label="LinkedIn"
+            />
+          )}
         </motion.div>
       </motion.div>
 

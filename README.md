@@ -2,11 +2,11 @@
 
 > 자율주행 / AI / 임베디드 엔지니어
 
-Skyautonet 자율주행 인턴 출신. ROS2/Autoware 기반 인지-판단-제어 파이프라인과 CAN 통신, HILS 검증 경험.
+ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증과 AI 컴퓨터비전을 다루는 포트폴리오 사이트입니다.
 
 ## 배포
 
-- **Live**: [https://portfolio-kngyeol.vercel.app](https://portfolio-kngyeol.vercel.app)
+- **Live**: [https://kngyeol-portfolio.vercel.app](https://kngyeol-portfolio.vercel.app)
 
 ## 기술 스택
 
@@ -25,9 +25,11 @@ Skyautonet 자율주행 인턴 출신. ROS2/Autoware 기반 인지-판단-제어
 
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
+| **SCV** | 자연어 명령 기반 Smart Companion Vehicle | ROS2, Nav2, RoboCrew |
 | **Balemale** | AI 스마트 자율 주차 로봇 (18개 FSM, ArUco 28개 마커) | ROS2, YOLOv8, TensorRT |
 | **TeamKAI** | 자율주행 자작차 인지 파트장 | ROS, LiDAR, CAN |
 | **ARAS** | RC Car ADAS 시스템 (Fail-Safe 설계) | MQTT, OpenCV, RPi5 |
+| **Bimanual Manipulation** | 양손 로봇 조작 시나리오 영상 아카이브 | Robot Arm, Video Analysis |
 
 ### AI / 컴퓨터비전
 
@@ -46,32 +48,23 @@ Skyautonet 자율주행 인턴 출신. ROS2/Autoware 기반 인지-판단-제어
 
 ## 프로젝트 미리보기
 
-### Balemale - AI 스마트 자율 주차 로봇
+### SCV - Smart Companion Vehicle
 
-<!-- TODO: 이미지 추가 -->
-<!-- ![Balemale Demo](./public/projects/balemale/demo.gif) -->
-
-- ArUco 마커 기반 자율 주행
-- 18개 FSM 상태 기반 입고/출차
-- Spring Boot + Vue 3 키오스크
+- 자연어 명령을 LLM planner와 ROS2 drive bridge로 연결
+- Nav2/AMCL/SLAM 기반 실내 주행, 비전 정렬, 로봇팔 runtime 통합
+- 발표자료 PDF와 영상 포트폴리오 mp4를 프로젝트 상세 페이지에 연결
 
 ### Fire & Smoke Detection Drone
-
-<!-- TODO: 이미지 추가 -->
-<!-- ![Fire Detection](./public/projects/fire-detection/result.png) -->
 
 - YOLOv9-c 화재/연기 탐지
 - mAP50: 0.867, 4.6ms 추론
 - Lite-Mono 깊이 추정
 
-### CAN MultiECU HILS
+### Bimanual Manipulation
 
-<!-- TODO: 이미지 추가 -->
-<!-- ![CAN HILS](./public/projects/can-hils/architecture.png) -->
-
-- STM32 x2 Sensor/Control ECU 분리
-- CAN A/B 이중화 Fail-over
-- Python HILS 시나리오 검증
+- 양손 조작 시나리오 4개 영상 연결
+- 음료수, 치약/칫솔, 소형 물체 조작 장면 정리
+- 영상별 타임스탬프 설명은 추가 정리 예정
 
 ## 로컬 실행
 
@@ -103,7 +96,7 @@ pnpm build
 │   ├── animations.ts      # Framer Motion 설정
 │   └── utils.ts
 ├── public/
-│   └── projects/       # 프로젝트 이미지/영상 (TODO)
+│   └── projects/       # 프로젝트 이미지/영상/PDF
 └── styles/
     └── globals.css
 ```
