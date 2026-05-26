@@ -29,7 +29,6 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 | **Balemale** | AI 스마트 자율 주차 로봇 (18개 FSM, ArUco 28개 마커) | ROS2, YOLOv8, TensorRT |
 | **TeamKAI** | 자율주행 자작차 인지 파트장 | ROS, LiDAR, CAN |
 | **ARAS** | RC Car ADAS 시스템 (Fail-Safe 설계) | MQTT, OpenCV, RPi5 |
-| **Bimanual Manipulation** | 양손 로봇 조작 시나리오 영상 아카이브 | Robot Arm, Video Analysis |
 
 ### AI / 컴퓨터비전
 
@@ -59,12 +58,6 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 - YOLOv9-c 화재/연기 탐지
 - mAP50: 0.867, 4.6ms 추론
 - Lite-Mono 깊이 추정
-
-### Bimanual Manipulation
-
-- 양손 조작 시나리오 4개 영상 연결
-- 음료수, 치약/칫솔, 소형 물체 조작 장면 정리
-- 영상별 타임스탬프 설명은 추가 정리 예정
 
 ## 로컬 실행
 
