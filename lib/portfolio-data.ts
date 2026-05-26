@@ -246,9 +246,9 @@ export const projects: Project[] = [
       {
         type: "document",
         src: "/projects/scv/scv-presentation.pdf",
-        alt: "SCV presentation deck",
-        label: "발표자료 PDF",
-        caption: "SCV 중간 발표자료",
+        alt: "SCV final presentation deck",
+        label: "최종 발표자료 PDF",
+        caption: "SCV 최종 발표자료",
       },
     ],
     sections: [

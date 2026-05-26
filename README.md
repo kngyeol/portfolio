@@ -52,7 +52,7 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 
 - 자연어 명령을 LLM planner와 ROS2 drive bridge로 연결
 - Nav2/AMCL/SLAM 기반 실내 주행, 비전 정렬, 로봇팔 runtime 통합
-- 발표자료 PDF와 영상 포트폴리오 mp4를 프로젝트 상세 페이지에 연결
+- 최종 발표자료 PDF와 영상 포트폴리오 mp4를 프로젝트 상세 페이지에 연결
 
 ### Fire & Smoke Detection Drone
 
