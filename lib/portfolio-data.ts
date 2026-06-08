@@ -197,13 +197,58 @@ export const categories = [
 ] as const
 
 export const projects: Project[] = [
+  // ===== Skyautonet 인턴 프로젝트 =====
+  {
+    id: 15,
+    slug: "fodro",
+    title: "FODRo - 활주로 이물질 제거 로봇",
+    subtitle: "차량 통신(CAN) · HILS · 인턴",
+    period: "2024.09 - 2024.12",
+    organization: "Skyautonet",
+    description:
+      "SkyAutonet 인턴십에서 진행한 활주로/도로 이물질(FOD) 탐지·제거 자율 로봇 프로젝트. FOD 운영 로직(FOD Manager·청소 상태 발행)과 ROS2→차량 CAN 변환, vcan 기반 HILS 검증 환경을 담당했습니다.",
+    highlights: [
+      "감지된 FOD 객체를 ego pose 기준 map pose로 변환, Lanelet2 current/next lane 검증 + 2m 클러스터링으로 유효 FOD 목록 관리",
+      "AUTO_CLEAN 청소 장비 제어 + cleaning state 발행, 다중 FOD 우선순위(거리·반대방향) 정렬 로직 설계",
+      "FODRo HILS: vcan으로 actuator·상태 CAN 재현해 실차 없이 반복 검증",
+      "CAN Converter: yaw 0~360° 정규화 · local→WGS84 역투영 · CAN ID별 byte packing 구현·검증",
+      "CAN Converter·byte packing·HILS 검증 — 차량/진단 통신(CAN, CAN FD) 직무와 직결",
+    ],
+    role: ["FOD Manager", "CAN Converter", "HILS"],
+    techStack: ["C++", "ROS2", "Autoware", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
+    category: "자율주행 / 로봇",
+    metrics: ["4개월 실무 운영", "40+ 일간 보고", "9+ 주간 보고"],
+    status: "completed",
+  },
+  {
+    id: 16,
+    slug: "skyautonet-lv4",
+    title: "Level 4+ 자율주행 플랫폼",
+    subtitle: "ROS2 자율주행 · HILS · 인턴",
+    period: "2024.09 - 2024.12",
+    organization: "Skyautonet",
+    description:
+      "SkyAutonet 인턴십에서 진행한 Autoware 기반 Level 4 자율주행 플랫폼 프로젝트. Lanelet2 기반 경로 생성·리루팅과 외부 차선변경 연동(Planning Manager), HILS actuator·HMI 연동을 담당했습니다.",
+    highlights: [
+      "Lanelet2 기반 target lanelet 탐색 + distance-limited route 생성 + 잔여거리 기반 reroute 구현",
+      "외부(HMI) 차선변경 service 호출 후 route reset, DrivingStatus 구독·flag 초기화로 변경 차선 기준 경로 재생성",
+      "Lv4 HILS: OperationMode·DrivingStatus 기반 control enable 분기, actuator/state CAN(0x200) 매핑",
+      "상태 CAN(0x200) 매핑·HILS 반복 검증 — 임베디드 통신·검증 경험",
+    ],
+    role: ["Planning Manager", "HILS", "HMI 연동"],
+    techStack: ["C++", "ROS2", "Autoware", "Lanelet2", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
+    category: "자율주행 / 로봇",
+    metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "상태 CAN 0x200"],
+    status: "completed",
+  },
+
   // ===== 자율주행 / 로봇 =====
   {
     id: 14,
     slug: "scv",
     title: "SCV - Smart Companion Vehicle",
     subtitle: "자연어 명령 기반 이동형 AI 홈 어시스턴트",
-    period: "2026.05",
+    period: "2026.03 - 2026.05",
     organization: "TEAM A207",
     description:
       "자연어 명령을 실행 가능한 주행·정렬·조작 흐름으로 변환하고, ROS2/Nav2 주행과 비전 정렬, 로봇팔 런타임을 연결한 Smart Companion Vehicle 프로젝트입니다.",
@@ -282,8 +327,11 @@ export const projects: Project[] = [
       },
     ],
     troubleshooting: [
-      "CAN/F446ZE gateway는 별도 feature 단계로 분리하고, 실제 runtime 경로는 USB 직결 Yahboom base 기준으로 정리",
-      "실기 반복 튜닝의 비용을 줄이기 위해 stub-hardware smoke mode와 web teleop/map helper를 함께 구성",
+      "Nav2 ↔ 메카넘휠 불일치: 메카넘에 맞는 Nav2 플러그인을 탐색하고 직접 주행시키며 적합한 모델을 선택, 이후 로봇에 맞게 파라미터 튜닝",
+      "멀티허브 전압 피크: 라이다·IMU·모터드라이버·로봇팔·카메라를 허브로 연결 시 실행 순간 전압 피크로 라이다·카메라가 켜지지 않음 → 실행 스크립트에서 라이다 런치를 먼저 실행하고 완료를 트래킹해 기다린 뒤 민감한 노드부터 순차 실행",
+      "cmd_vel 다중 소스 충돌: Nav2·LLM Precision mode·사용자 컨트롤이 동시에 cmd_vel을 발행해 모터 제어가 꼬임 → 모든 cmd를 한 곳에서 관리하는 motionCoordinator를 개발, state·우선순위로 단일 중재",
+      "메카넘 드리프트(하드웨어 한계): teleop·precision 모드에서 직진·strafe·회전이 의도와 다르게 이동 → IMU·EKF·LiDAR 위치추정으로 heading을 유지하도록 이동 중 지속 보정하는 노드를 설계해 소프트웨어로 보정",
+      "Nav2 경로 일관성: 메카넘 슬립·드리프트로 실행마다 경로가 크게 달라짐 → real2sim 시뮬레이션 환경 구축, teleop 정답 주행을 rosbag으로 저장해 시뮬레이션에 연동, AI agent를 SILS 루프에 투입해 Nav2 파라미터를 강화학습으로 반복 튜닝(경로 일관성 + 장애물 회피 + 목적지 좌표·heading 오차 최소화)",
     ],
     futureWork: ["auto initial pose", "CAN/F446ZE gateway production integration", "precision calibration 고도화"],
   },
@@ -322,6 +370,11 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/balemale",
     metrics: ["18개 FSM 상태", "28개 ArUco 마커", "12개 주차 슬롯"],
     status: "completed",
+    troubleshooting: [
+      "전원 문제: 12V 모터 4개 + Jetson을 단일 배터리로 연결 시 전압 강하 발생 → Jetson용·모터용 배터리를 분리",
+      "라인트레이싱 → 마커 기반 주행 전환: 차량 대비 맵이 작아 메카넘 주행 시 라인이 빠르게 시야를 벗어나 위치를 잃음 → 멀리서도 방향이 조금 틀어져도 잡히는 마커 기반 주행(차량 위치 + 마커 상대좌표)으로 변경",
+      "마커 추적 끊김: 전면 상단 카메라 특성상 마커에 가까워지면 마커가 시야 아래로 사라져 일시적 위치 상실 → 칼만필터 기반 위치 유지로, 다음 마커가 안정적으로 탐지될 때까지 마지막 마커 위치 기반 추정을 유지",
+    ],
   },
   {
     id: 2,
@@ -345,13 +398,18 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/TeamKAI",
     metrics: ["18개 FSM", "센서 5종 융합"],
     status: "completed",
+    troubleshooting: [
+      "LiDAR 과부하: 입력 pointcloud가 너무 비대해 필요한 정보 추출이 어렵고 처리 과부하 발생 → 콘 트랙 정보만 남기도록 전처리를 하나씩 조합·검증하며 최적 파이프라인 구축",
+      "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
+      "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
+    ],
   },
   {
     id: 3,
     slug: "aras",
     title: "ARAS - RC Car ADAS 시스템",
     subtitle: "Advanced RCcar Assist System",
-    period: "2025.08 - 2025.09",
+    period: "2025.11 - 2025.12",
     organization: "SSAFY",
     description:
       "Raspberry Pi 5 기반 실제 차량 ADAS 구조를 축소 구현한 지능형 주행 보조 시스템. MQTT 기반 노드 분리 아키텍처.",
@@ -396,7 +454,7 @@ export const projects: Project[] = [
     slug: "fire-detection-drone",
     title: "Fire & Smoke Detection Drone",
     subtitle: "졸업 프로젝트",
-    period: "2024.03 - 2024.06",
+    period: "2024.01 - 2024.06",
     organization: "건국대학교",
     description:
       "YOLOv9 객체 탐지 + Lite-Mono 단안 깊이 추정을 결합하여 화재/연기를 실시간 탐지하고 위험도(Severity)와 경고 레벨(0~3)을 자동 산출.",
@@ -419,7 +477,7 @@ export const projects: Project[] = [
     slug: "korean-vqa",
     title: "SSAFY AI Challenge - Korean VQA",
     subtitle: "VLM 기반 4지선다 VQA",
-    period: "2026.02 - 2026.03",
+    period: "2025.10",
     organization: "SSAFY",
     description:
       "한국어 이미지 기반 4지선다 VQA 챌린지. 5가지 실험 전략으로 VLM 파인튜닝 및 앙상블 라우팅 구현.",
@@ -446,10 +504,10 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    slug: "divery",
-    title: "Divery - 다이빙 로그북 AI 생성",
+    slug: "divary",
+    title: "Divary - 다이빙 로그북 AI 생성",
     subtitle: "SSAFY 특화 프로젝트",
-    period: "2026.01 - 2026.02",
+    period: "2026.02 - 2026.03",
     organization: "SSAFY",
     description:
       "다이빙 영상 업로드 시 AI가 하이라이트 추출 → 물고기 탐지/분류 → LLM 기반 로그북 자동 생성하는 서비스.",
@@ -470,7 +528,7 @@ export const projects: Project[] = [
     slug: "menu-scanner",
     title: "Smart Menu Board Scanner",
     subtitle: "음식 분류 + 메뉴판 OCR",
-    period: "2024.01 - 2024.02",
+    period: "2023.09 - 2023.12",
     organization: "건국대학교",
     description:
       "외국인 관광객을 위한 한국 음식점 메뉴판 자동 인식. MobileNetV2로 101종 음식 분류, EasyOCR로 한/영 텍스트 인식.",
@@ -494,7 +552,7 @@ export const projects: Project[] = [
     slug: "circuitforge",
     title: "CircuitForge",
     subtitle: "텍스트→회로도 변환 에디터",
-    period: "2025.10 - 2025.12",
+    period: "2026.02",
     organization: "개인 프로젝트",
     description:
       "AI가 생성한 텍스트 배선 지시문을 인터랙티브 GUI 회로도로 자동 변환. MNA 솔버로 DC 동작점/과도 해석, 10가지 ERC 검증.",
@@ -517,7 +575,7 @@ export const projects: Project[] = [
     slug: "developers-kr",
     title: "Developers.kr",
     subtitle: "개발자 도구/가이드 포털",
-    period: "2025.11 - 2025.12",
+    period: "2026.01",
     organization: "개인 프로젝트",
     description:
       "33개 개발 도구, 15개 기술 비교, 20개 섹션 포털형 홈페이지. 치트시트, 알고리즘, 디자인패턴, 취준 가이드 등 제공.",
@@ -539,7 +597,7 @@ export const projects: Project[] = [
     slug: "ivi-dashboard",
     title: "IVI Dashboard",
     subtitle: "차량 인포테인먼트 데이터 시각화",
-    period: "2025.08",
+    period: "2025.08 - 2025.10",
     organization: "SSAFY",
     description:
       "Firebase Firestore에 저장된 차량 telematics 데이터를 웹에서 실시간 시각화. z-score 기반 이상치 탐지.",
@@ -561,7 +619,7 @@ export const projects: Project[] = [
     slug: "can-multiecu-hils",
     title: "CAN MultiECU HILS",
     subtitle: "CAN 이중화 검증 플랫폼",
-    period: "2025.09 - 2025.10",
+    period: "2026.03 - 2026.04",
     organization: "개인 프로젝트",
     description:
       "STM32 F446RE 2대로 Sensor ECU / Control ECU 분리. CAN A/B 이중화 + Fail-over, FreeRTOS 멀티태스킹, Python HILS 시나리오 검증.",
