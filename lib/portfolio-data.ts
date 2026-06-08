@@ -128,7 +128,7 @@ export interface Award {
 export const awards: Award[] = [
   {
     id: 1,
-    title: "공학교육혁신센터 장려상",
+    title: "창의설계경진대회 장려상",
     organization: "건국대학교",
     date: "2024.09",
     description: "차량의 주변상황과 차량상태 인지시스템",
@@ -219,6 +219,11 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["4개월 실무 운영", "40+ 일간 보고", "9+ 주간 보고"],
     status: "completed",
+    troubleshooting: [
+      "Yaw·좌표 정규화: HILS 검증 중 변환한 yaw·좌표가 차량 CAN 프로토콜과 어긋남(yaw −180~180° vs CAN 0~360°, local pose(map) vs GNSS WGS84) → 음수 yaw에 360°를 더해 정규화하고 map_projector로 WGS84 역투영, offset/factor로 raw value 생성해 EKF localization 연결을 HILS에서 반복 검증",
+      "Proxy(HMI) route 전달 QoS: route를 proxy server로 HMI에 전달할 때 늦게 구독한 노드가 마지막 route를 받지 못함 → transient_local QoS(latched)로 전환하고 route 미수신 상태를 별도 분기로 처리",
+      "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 포즈·차선 기준이 흔들림 → 감지 객체를 ego→map pose로 변환한 뒤 lanelet orientation·current/next lane 기준으로 2m 클러스터링 + 우선순위(거리·반대방향) 정렬",
+    ],
   },
   {
     id: 16,
@@ -240,6 +245,11 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "상태 CAN 0x200"],
     status: "completed",
+    troubleshooting: [
+      "Lane-change Reroute: 외부(HMI) 차선변경 후 rerouting이 이전 차선 기준으로 생성돼 차량이 바뀐 차선을 따라가지 못함 → DrivingStatus(LANE_CHANGE·LEFT/RIGHT) 구독 + 방향별 lane-change service 호출 + AUTONOMOUS 복귀 시 flag 초기화 + route reset으로 변경 차선 기준 경로 재생성",
+      "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
+      "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN(0x200)을 매핑해 반복 검증",
+    ],
   },
 
   // ===== 자율주행 / 로봇 =====
@@ -518,10 +528,11 @@ export const projects: Project[] = [
       "LLM 기반 다이빙 로그북 자동 생성",
       "AWS SQS + GPU 워커 기반 분산 처리",
     ],
-    role: ["Frontend", "DevOps"],
+    role: ["Full-Stack", "DevOps", "AI"],
     techStack: ["React", "React Native", "Spring Boot", "YOLO-World", "BioCLIP", "Docker", "Jenkins", "AWS SQS"],
     category: "AI / 컴퓨터비전",
-    status: "in-progress",
+    metrics: ["76/103 전체 커밋", "FE · BE · Infra 전 영역"],
+    status: "completed",
   },
   {
     id: 8,
