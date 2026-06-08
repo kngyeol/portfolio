@@ -6,25 +6,30 @@ import { profile } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
 const links = [
-  {
+  profile.contact.email && {
     label: "Email",
     href: `mailto:${profile.contact.email}`,
     icon: <Mail size={18} />,
-    value: profile.contact.email || "email@example.com",
+    value: profile.contact.email,
   },
-  {
+  profile.contact.github && {
     label: "GitHub",
-    href: profile.contact.github || "#",
+    href: profile.contact.github,
     icon: <Github size={18} />,
-    value: "GitHub",
+    value: profile.contact.github.replace(/^https?:\/\//, ""),
   },
-  {
+  profile.contact.linkedin && {
     label: "LinkedIn",
-    href: profile.contact.linkedin || "#",
+    href: profile.contact.linkedin,
     icon: <Linkedin size={18} />,
     value: "LinkedIn",
   },
-]
+].filter(Boolean) as {
+  label: string
+  href: string
+  icon: React.ReactNode
+  value: string
+}[]
 
 export function ContactSection() {
   return (
@@ -59,7 +64,7 @@ export function ContactSection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border bg-card px-5 py-4 transition-all hover:border-primary/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.06)]"
+                className="group flex items-center justify-between rounded-xl border border-border bg-card px-5 py-4 transition-all hover:border-primary/30 hover:shadow-[0_0_20px_rgba(242,107,29,0.06)]"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">

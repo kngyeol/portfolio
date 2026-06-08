@@ -34,7 +34,7 @@ export function ExperienceSection() {
             <motion.div
               key={exp.id}
               variants={fadeInUp}
-              className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]"
+              className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(242,107,29,0.08)]"
             >
               {/* Color accent bar */}
               <div className="absolute left-0 top-0 h-full w-1 bg-primary/60" />

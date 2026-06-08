@@ -255,7 +255,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                   {project.metrics.map((metric, i) => (
                     <div
                       key={i}
-                      className="rounded-lg bg-emerald-500/10 px-3 py-2 text-center text-sm font-semibold text-emerald-500"
+                      className="rounded-lg bg-primary/10 px-3 py-2 text-center text-sm font-semibold text-primary"
                     >
                       {metric}
                     </div>

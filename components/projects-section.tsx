@@ -73,7 +73,7 @@ export function ProjectsSection() {
                 onClick={() => setActiveCategory(cat.name)}
                 className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
                   activeCategory === cat.name
-                    ? "bg-primary text-primary-foreground shadow-[0_0_16px_rgba(6,182,212,0.2)]"
+                    ? "bg-primary text-primary-foreground shadow-[0_0_16px_rgba(242,107,29,0.2)]"
                     : "border border-border bg-secondary text-secondary-foreground hover:border-primary/30 hover:text-primary"
                 }`}
               >
@@ -112,9 +112,14 @@ function ProjectCard({ project }: { project: Project }) {
       initial="hidden"
       animate="visible"
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-      className="group overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]"
+      className="group relative overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(242,107,29,0.08)]"
     >
-      <Link href={`/projects/${project.slug}`} className="block cursor-pointer">
+      {/* Full-card click target (kept as overlay to avoid nested anchors) */}
+      <Link
+        href={`/projects/${project.slug}`}
+        className="absolute inset-0 z-0"
+        aria-label={`${project.title} 자세히 보기`}
+      />
       {/* Header area with category color bar */}
       <div className="relative h-2 w-full bg-primary/20">
         <div className="absolute inset-y-0 left-0 w-1/3 bg-primary/60" />
@@ -144,7 +149,7 @@ function ProjectCard({ project }: { project: Project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:border-primary hover:text-primary"
+                className="relative z-10 flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:border-primary hover:text-primary"
                 aria-label="GitHub 저장소"
               >
                 <Github size={14} />
@@ -189,7 +194,7 @@ function ProjectCard({ project }: { project: Project }) {
             {project.metrics.slice(0, 2).map((metric, i) => (
               <span
                 key={i}
-                className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500"
+                className="rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary"
               >
                 {metric}
               </span>
@@ -214,7 +219,6 @@ function ProjectCard({ project }: { project: Project }) {
           )}
         </div>
       </div>
-      </Link>
     </motion.article>
   )
 }

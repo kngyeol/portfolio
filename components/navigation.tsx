@@ -37,9 +37,10 @@ export function Navigation() {
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <a
           href="#"
-          className="text-lg font-bold tracking-tight text-foreground"
+          aria-label="Home"
+          className="group flex items-center"
         >
-          DY<span className="text-primary">.</span>
+          <span className="h-4 w-4 rounded-[3px] bg-primary transition-transform duration-300 group-hover:scale-110" />
         </a>
 
         {/* Desktop nav */}

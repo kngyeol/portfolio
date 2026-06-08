@@ -50,7 +50,7 @@ export function SkillsSection() {
             <motion.div
               key={category}
               variants={fadeInUp}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_24px_rgba(6,182,212,0.06)]"
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_24px_rgba(242,107,29,0.06)]"
             >
               <div className="mb-4 flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">

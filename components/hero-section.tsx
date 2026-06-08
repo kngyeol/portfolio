@@ -22,10 +22,13 @@ export function HeroSection() {
         animate="visible"
         className="relative z-10 mx-auto max-w-3xl text-center"
       >
-        {/* Status badge */}
-        <motion.div variants={fadeInUp} className="mb-8 inline-block">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-1.5 text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        {/* Eyebrow */}
+        <motion.div variants={fadeInUp} className="mb-6 flex items-center justify-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            {profile.role}
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-[11px] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Open to Opportunities
           </span>
         </motion.div>
@@ -33,15 +36,24 @@ export function HeroSection() {
         {/* Name */}
         <motion.h1
           variants={fadeInUp}
-          className="text-balance text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          className="text-balance text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
         >
           {profile.name}
+          <span className="text-primary">.</span>
         </motion.h1>
+
+        {/* Tagline */}
+        <motion.p
+          variants={fadeInUp}
+          className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+        >
+          {profile.tagline}
+        </motion.p>
 
         {/* Title */}
         <motion.p
           variants={fadeInUp}
-          className="mt-4 text-lg font-medium text-primary sm:text-xl"
+          className="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground sm:text-base"
         >
           {profile.title}
         </motion.p>
@@ -114,7 +126,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-muted-foreground transition-all hover:border-primary hover:text-primary hover:shadow-[0_0_12px_rgba(6,182,212,0.15)]"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-muted-foreground transition-all hover:border-primary hover:text-primary hover:shadow-[0_0_12px_rgba(242,107,29,0.15)]"
     >
       {icon}
     </a>
