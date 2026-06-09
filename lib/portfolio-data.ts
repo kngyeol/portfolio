@@ -224,7 +224,7 @@ export const projects: Project[] = [
       "Proxy(HMI) route 전달 QoS: route를 proxy server로 HMI에 전달할 때 늦게 구독한 노드가 마지막 route를 받지 못함 → transient_local QoS(latched)로 전환하고 route 미수신 상태를 별도 분기로 처리",
       "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 포즈·차선 기준이 흔들림 → 감지 객체를 ego→map pose로 변환한 뒤 lanelet orientation·current/next lane 기준으로 2m 클러스터링 + 우선순위(거리·반대방향) 정렬",
     ],
-    heroMedia: { type: "image", src: "/projects/fodro/cover.png", alt: "SkyAutonet 자율주행 HMI" },
+    heroMedia: { type: "image", src: "/projects/fodro/fod-clean-rviz.png", alt: "FODRo FOD 청소 경로 (RViz)" },
     media: [
       { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력", caption: "쿼터니언→Yaw rad→deg + 음수 +360°로 0~360° 정규화 후 정상 출력" },
       { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "map_projector transient_local 에러", caption: "Invalid map projector type — QoS transient_local 미설정 시 노드 종료" },
