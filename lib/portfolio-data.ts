@@ -224,7 +224,7 @@ export const projects: Project[] = [
       "Proxy(HMI) route 전달 QoS: route를 proxy server로 HMI에 전달할 때 늦게 구독한 노드가 마지막 route를 받지 못함 → transient_local QoS(latched)로 전환하고 route 미수신 상태를 별도 분기로 처리",
       "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 포즈·차선 기준이 흔들림 → 감지 객체를 ego→map pose로 변환한 뒤 lanelet orientation·current/next lane 기준으로 2m 클러스터링 + 우선순위(거리·반대방향) 정렬",
     ],
-    heroMedia: { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력" },
+    heroMedia: { type: "image", src: "/projects/fodro/cover.png", alt: "SkyAutonet 자율주행 HMI" },
     media: [
       { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력", caption: "쿼터니언→Yaw rad→deg + 음수 +360°로 0~360° 정규화 후 정상 출력" },
       { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "map_projector transient_local 에러", caption: "Invalid map projector type — QoS transient_local 미설정 시 노드 종료" },
@@ -260,7 +260,7 @@ export const projects: Project[] = [
       "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
       "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN(0x200)을 매핑해 반복 검증",
     ],
-    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면" },
+    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/cover.png", alt: "SkyAutonet 자율주행 HMI" },
     media: [
       { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-before.png", alt: "Lanelet marker 겹침(전)", caption: "회색 roads marker가 다른 marker를 가림 (수정 전)" },
@@ -305,13 +305,7 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["ROS2/Nav2 runtime", "LLM drive bridge", "vision alignment"],
     status: "completed",
-    heroMedia: {
-      type: "video",
-      src: "/projects/scv/scv-video-portfolio.mp4",
-      poster: "/projects/scv/scv-video-portfolio.jpg",
-      alt: "SCV video portfolio",
-      caption: "SCV video portfolio",
-    },
+    heroMedia: { type: "image", src: "/projects/scv/cover.png", alt: "SCV - Smart Companion Vehicle" },
     media: [
       {
         type: "video",
@@ -410,7 +404,7 @@ export const projects: Project[] = [
       "라인트레이싱 → 마커 기반 주행 전환: 차량 대비 맵이 작아 메카넘 주행 시 라인이 빠르게 시야를 벗어나 위치를 잃음 → 멀리서도 방향이 조금 틀어져도 잡히는 마커 기반 주행(차량 위치 + 마커 상대좌표)으로 변경",
       "마커 추적 끊김: 전면 상단 카메라 특성상 마커에 가까워지면 마커가 시야 아래로 사라져 일시적 위치 상실 → 칼만필터 기반 위치 유지로, 다음 마커가 안정적으로 탐지될 때까지 마지막 마커 위치 기반 추정을 유지",
     ],
-    heroMedia: { type: "image", src: "/projects/balemale/demo.png", alt: "ArUco 마커 주차 시연" },
+    heroMedia: { type: "image", src: "/projects/balemale/cover.png", alt: "Balemale 메카넘 자율주차 로봇" },
     media: [
       { type: "image", src: "/projects/balemale/pipeline.png", alt: "ArUco+Kalman 위치추정 파이프라인", caption: "카메라 → ArUco 마커 → 칼만필터 → 위치추정 파이프라인" },
       { type: "image", src: "/projects/balemale/demo.png", alt: "ArUco 28마커 주차 시연", caption: "흰 격자 바닥 위 메카넘 로봇 + ArUco 마커 실물 시연" },
@@ -445,7 +439,7 @@ export const projects: Project[] = [
       "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
       "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
     ],
-    heroMedia: { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 + RC카" },
+    heroMedia: { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차" },
     media: [
       { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 주행", caption: "주황 콘 트랙 + RC카 실주행" },
       { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
@@ -472,7 +466,7 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["5개 노드", "3가지 주행 모드"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/aras/sw-arch.png", alt: "ARAS SW 아키텍처" },
+    heroMedia: { type: "image", src: "/projects/aras/cover.png", alt: "ARAS RC Car ADAS" },
     media: [
       { type: "image", src: "/projects/aras/sw-arch.png", alt: "SW 아키텍처", caption: "tof/lane → fsm_manager → motor/logger (MQTT 노드 분리)" },
       { type: "image", src: "/projects/aras/lane-node.png", alt: "차선 인식(lane_node)", caption: "binary/original/lane 3창 + curvature·offset" },
@@ -591,10 +585,10 @@ export const projects: Project[] = [
     ],
     role: ["Full-Stack", "DevOps", "AI"],
     techStack: ["React", "React Native", "Spring Boot", "YOLO-World", "BioCLIP", "Docker", "Jenkins", "AWS SQS"],
-    category: "AI / 컴퓨터비전",
+    category: "웹 / 풀스택",
     metrics: ["76/103 전체 커밋", "FE · BE · Infra 전 영역"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/divary/fish-detection.png", alt: "AI 어류 탐지/분류" },
+    heroMedia: { type: "image", src: "/projects/divary/cover.png", alt: "Divary 다이빙 로그북 앱" },
     media: [
       { type: "image", src: "/projects/divary/fish-detection.png", alt: "AI 어류 탐지/분류", caption: "수중 영상 어류 bounding box + ID 라벨" },
       { type: "image", src: "/projects/divary/model-eval.png", alt: "어류 분류 모델 평가", caption: "mAP@0.50 = 0.7962, best threshold 0.45" },
