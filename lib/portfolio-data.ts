@@ -224,6 +224,16 @@ export const projects: Project[] = [
       "Proxy(HMI) route 전달 QoS: route를 proxy server로 HMI에 전달할 때 늦게 구독한 노드가 마지막 route를 받지 못함 → transient_local QoS(latched)로 전환하고 route 미수신 상태를 별도 분기로 처리",
       "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 포즈·차선 기준이 흔들림 → 감지 객체를 ego→map pose로 변환한 뒤 lanelet orientation·current/next lane 기준으로 2m 클러스터링 + 우선순위(거리·반대방향) 정렬",
     ],
+    heroMedia: { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력" },
+    media: [
+      { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력", caption: "쿼터니언→Yaw rad→deg + 음수 +360°로 0~360° 정규화 후 정상 출력" },
+      { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "map_projector transient_local 에러", caption: "Invalid map projector type — QoS transient_local 미설정 시 노드 종료" },
+      { type: "image", src: "/projects/fodro/can-frame-def.png", alt: "CAN 프레임 정의", caption: "0x100 lat/lon(factor 1e-7)·0x101 Yaw(0~360) CAN 프레임 정의" },
+      { type: "image", src: "/projects/fodro/can-send-dump.png", alt: "CAN 송신 덤프", caption: "hil_actuator CAN 송신 + candump 확인" },
+      { type: "image", src: "/projects/fodro/fod-db-sort-code.png", alt: "다중 FOD DB 정렬 코드", caption: "FodDB(): 반대방향 pose 우선 + 거리순 정렬" },
+      { type: "image", src: "/projects/fodro/reverse-mode-rviz.png", alt: "REVERSE 모드 rviz", caption: "FOD 후진(REVERSE) 모드 — R gear, 후진 경로" },
+      { type: "image", src: "/projects/fodro/fod-clean-rviz.png", alt: "FOD 청소 경로 rviz", caption: "FOD 청소 경로 생성·주행" },
+    ],
   },
   {
     id: 16,
@@ -249,6 +259,16 @@ export const projects: Project[] = [
       "Lane-change Reroute: 외부(HMI) 차선변경 후 rerouting이 이전 차선 기준으로 생성돼 차량이 바뀐 차선을 따라가지 못함 → DrivingStatus(LANE_CHANGE·LEFT/RIGHT) 구독 + 방향별 lane-change service 호출 + AUTONOMOUS 복귀 시 flag 초기화 + route reset으로 변경 차선 기준 경로 재생성",
       "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
       "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN(0x200)을 매핑해 반복 검증",
+    ],
+    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면" },
+    media: [
+      { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
+      { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-before.png", alt: "Lanelet marker 겹침(전)", caption: "회색 roads marker가 다른 marker를 가림 (수정 전)" },
+      { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-after.png", alt: "Lanelet marker 겹침(후)", caption: "marker z축 조정으로 겹침 해소 (수정 후)" },
+      { type: "image", src: "/projects/skyautonet-lv4/lane-change-rviz.png", alt: "차선변경 경로 rviz", caption: "external lane change 후 변경 차선 기준 경로 생성" },
+      { type: "image", src: "/projects/skyautonet-lv4/lane-change-service.png", alt: "lane change service 코드", caption: "external_request_lane_change service 연동 코드" },
+      { type: "image", src: "/projects/skyautonet-lv4/getendoflane-footprint.png", alt: "GetEndOfLaneGoal footprint", caption: "footprint 축소로 차선 내 158m route 정상 생성" },
+      { type: "image", src: "/projects/skyautonet-lv4/hils-state-can-code.png", alt: "HILS state CAN 코드", caption: "create_state_msg() — autonomous_mode 분기, State CAN 0x200" },
     ],
   },
 
@@ -300,6 +320,11 @@ export const projects: Project[] = [
         alt: "SCV video portfolio",
         caption: "주행, 시뮬레이션, 하드웨어 통합 흐름을 정리한 영상 포트폴리오",
       },
+      { type: "image", src: "/projects/scv/mecanum-drift.png", alt: "메카넘 드리프트 보정", caption: "strafe 시 +0.17m body-x drift → cmd_vel_corrector feedforward로 보정 (전/후 비교)" },
+      { type: "image", src: "/projects/scv/sils-tuning.jpg", alt: "Nav2 SILS 반복 튜닝", caption: "실패 발견 → SILS 후보 반복 검증 → 안정 경로 선정 (start→water 5/5)" },
+      { type: "video", src: "/projects/scv/sils-scaling.mp4", alt: "SILS 후보 스케일링", caption: "24 worker 후보 병렬 평가 (real2sim 루프)" },
+      { type: "video", src: "/projects/scv/robot-arm-failure.mp4", poster: "/projects/scv/robot-arm-failure.jpg", alt: "로봇팔 HITL 실패 패턴", caption: "로봇팔 파지 실패 패턴 → human-in-the-loop 피드백 보정" },
+      { type: "image", src: "/projects/scv/hw-arch.png", alt: "SILS/HILS 하드웨어 아키텍처", caption: "SILS/HILS 하드웨어 대시보드 구성" },
       {
         type: "document",
         src: "/projects/scv/scv-presentation.pdf",
@@ -385,6 +410,13 @@ export const projects: Project[] = [
       "라인트레이싱 → 마커 기반 주행 전환: 차량 대비 맵이 작아 메카넘 주행 시 라인이 빠르게 시야를 벗어나 위치를 잃음 → 멀리서도 방향이 조금 틀어져도 잡히는 마커 기반 주행(차량 위치 + 마커 상대좌표)으로 변경",
       "마커 추적 끊김: 전면 상단 카메라 특성상 마커에 가까워지면 마커가 시야 아래로 사라져 일시적 위치 상실 → 칼만필터 기반 위치 유지로, 다음 마커가 안정적으로 탐지될 때까지 마지막 마커 위치 기반 추정을 유지",
     ],
+    heroMedia: { type: "image", src: "/projects/balemale/demo.png", alt: "ArUco 마커 주차 시연" },
+    media: [
+      { type: "image", src: "/projects/balemale/pipeline.png", alt: "ArUco+Kalman 위치추정 파이프라인", caption: "카메라 → ArUco 마커 → 칼만필터 → 위치추정 파이프라인" },
+      { type: "image", src: "/projects/balemale/demo.png", alt: "ArUco 28마커 주차 시연", caption: "흰 격자 바닥 위 메카넘 로봇 + ArUco 마커 실물 시연" },
+      { type: "image", src: "/projects/balemale/hardware.png", alt: "적재 하드웨어 실물", caption: "그리퍼 + 리니어 액추에이터 (Rack&Pinion)" },
+      { type: "document", src: "/projects/balemale/balemale-deck.pdf", alt: "Balemale 발표자료", label: "발표자료 PDF", caption: "Balemale 발표자료" },
+    ],
   },
   {
     id: 2,
@@ -413,6 +445,11 @@ export const projects: Project[] = [
       "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
       "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
     ],
+    heroMedia: { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 + RC카" },
+    media: [
+      { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 주행", caption: "주황 콘 트랙 + RC카 실주행" },
+      { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
+    ],
   },
   {
     id: 3,
@@ -435,6 +472,17 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["5개 노드", "3가지 주행 모드"],
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/aras/sw-arch.png", alt: "ARAS SW 아키텍처" },
+    media: [
+      { type: "image", src: "/projects/aras/sw-arch.png", alt: "SW 아키텍처", caption: "tof/lane → fsm_manager → motor/logger (MQTT 노드 분리)" },
+      { type: "image", src: "/projects/aras/lane-node.png", alt: "차선 인식(lane_node)", caption: "binary/original/lane 3창 + curvature·offset" },
+      { type: "image", src: "/projects/aras/dashboard.png", alt: "4모드 대시보드", caption: "MANUAL/AUTO/ACC/STOP 제어 GUI" },
+      { type: "video", src: "/projects/aras/manual.mp4", alt: "MANUAL 시연", caption: "수동 주행 + 차선 소실 시 복구 조향" },
+      { type: "video", src: "/projects/aras/auto.mp4", alt: "AUTO 시연", caption: "차선 중심 자동 추종" },
+      { type: "video", src: "/projects/aras/acc.mp4", alt: "ACC 시연", caption: "ToF 거리 유지 (Adaptive Cruise Control)" },
+      { type: "video", src: "/projects/aras/ai.mp4", alt: "AI 분석 시연", caption: "급가속·급회전·급제동 통계 분석" },
+      { type: "document", src: "/projects/aras/aras-deck.pdf", alt: "ARAS 발표자료", label: "발표자료 PDF", caption: "ARAS 발표자료" },
+    ],
   },
   {
     id: 4,
@@ -456,6 +504,12 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamPathfinders",
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인" },
+    media: [
+      { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인", caption: "원본 + 엣지 + 라인 마스크" },
+      { type: "image", src: "/projects/pathfinders/bev.jpg", alt: "BEV 차선 추정", caption: "Bird's-eye View 차선 포인트 추정" },
+      { type: "image", src: "/projects/pathfinders/lane.gif", alt: "차선 추적", caption: "실시간 차선 검출" },
+    ],
   },
 
   // ===== AI / 컴퓨터비전 =====
@@ -481,6 +535,13 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/pjt-fire-detect-drone",
     metrics: ["mAP50 0.867", "P 0.834", "R 0.821"],
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/fire-detection-drone/detection.jpg", alt: "화재/연기 탐지 결과" },
+    media: [
+      { type: "image", src: "/projects/fire-detection-drone/detection.jpg", alt: "화재/연기 탐지 결과", caption: "YOLOv9 검증 예측 — fire/smoke bbox + confidence" },
+      { type: "image", src: "/projects/fire-detection-drone/pr-curve.png", alt: "PR 곡선", caption: "fire 0.865 / smoke 0.841 / all 0.853 mAP@0.5" },
+      { type: "image", src: "/projects/fire-detection-drone/confusion.png", alt: "혼동행렬", caption: "fire 0.88 / smoke 0.83" },
+      { type: "image", src: "/projects/fire-detection-drone/results.png", alt: "학습 곡선", caption: "loss · precision · recall · mAP" },
+    ],
   },
   {
     id: 6,
@@ -533,6 +594,12 @@ export const projects: Project[] = [
     category: "AI / 컴퓨터비전",
     metrics: ["76/103 전체 커밋", "FE · BE · Infra 전 영역"],
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/divary/fish-detection.png", alt: "AI 어류 탐지/분류" },
+    media: [
+      { type: "image", src: "/projects/divary/fish-detection.png", alt: "AI 어류 탐지/분류", caption: "수중 영상 어류 bounding box + ID 라벨" },
+      { type: "image", src: "/projects/divary/model-eval.png", alt: "어류 분류 모델 평가", caption: "mAP@0.50 = 0.7962, best threshold 0.45" },
+      { type: "image", src: "/projects/divary/flow.png", alt: "서비스 플로우", caption: "가입 → 업로드 → AI 분석 → 로그 → 통계" },
+    ],
   },
   {
     id: 8,
@@ -555,6 +622,12 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/smart-menu-board-scanner",
     metrics: ["101종 음식 분류", "한/영 OCR"],
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "메뉴 스캐너 파이프라인" },
+    media: [
+      { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "전체 파이프라인", caption: "Model1(음식 분류) + Model2(메뉴판 OCR → 번역)" },
+      { type: "image", src: "/projects/menu-scanner/ocr.png", alt: "메뉴판 OCR", caption: "EasyOCR 글자영역 검출 + 인식" },
+      { type: "image", src: "/projects/menu-scanner/translate.png", alt: "번역 결과", caption: "생선구이 → Roasted fish" },
+    ],
   },
 
   // ===== 웹 / 풀스택 =====
@@ -667,6 +740,11 @@ export const projects: Project[] = [
     category: "임베디드 / FPGA",
     github: "https://github.com/kngyeol/resnet50-mac-accelerator",
     status: "completed",
+    heroMedia: { type: "image", src: "/projects/resnet50-accelerator/benchmark.png", alt: "벤치마크 비교" },
+    media: [
+      { type: "image", src: "/projects/resnet50-accelerator/benchmark.png", alt: "벤치마크 비교", caption: "Reference 269s vs Optimized 197s — HW 가속 x1.36 faster" },
+      { type: "image", src: "/projects/resnet50-accelerator/layers.png", alt: "레이어 차원", caption: "conv 레이어별 채널/커널 차원" },
+    ],
   },
 ]
 
