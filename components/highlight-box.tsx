@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { CheckCircle2, AlertTriangle, Lightbulb } from "lucide-react"
 import { fadeInUp } from "@/lib/animations"
+import { RichText } from "./rich-text"
 
 type BoxVariant = "role" | "trouble" | "future"
 
@@ -58,7 +59,7 @@ export function HighlightBox({ variant, title, items }: HighlightBoxProps) {
             className="flex items-start gap-2.5 text-sm text-muted-foreground"
           >
             <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${config.textColor.replace("text-", "bg-")}`} />
-            <span>{item}</span>
+            <RichText text={item} emphasizeLead={variant === "trouble"} autoTokens />
           </li>
         ))}
       </ul>

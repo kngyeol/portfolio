@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { projects, categories, type Project } from "@/lib/portfolio-data"
 import { fadeInUp, scaleIn } from "@/lib/animations"
+import { RichText } from "./rich-text"
 
 const categoryIconMap: Record<string, React.ReactNode> = {
   전체: <Layers size={16} />,
@@ -185,7 +186,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-          {project.description}
+          <RichText text={project.description} autoTokens />
         </p>
 
         {/* Metrics badges */}

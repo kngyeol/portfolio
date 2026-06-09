@@ -24,6 +24,7 @@ import { HighlightBox } from "./highlight-box"
 import { ProjectFlowchart } from "./project-flowchart"
 import { ProjectTable } from "./project-table"
 import { ProjectMediaPreview } from "./project-media"
+import { RichText } from "./rich-text"
 
 interface ProjectDetailClientProps {
   project: Project
@@ -104,7 +105,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                 )}
               </div>
               {project.subtitle && (
-                <p className="mt-2 text-base text-muted-foreground">
+                <p className="mt-2 text-base font-medium text-foreground/75">
                   {project.subtitle}
                 </p>
               )}
@@ -150,15 +151,21 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
 
             {/* Description */}
             <motion.div variants={fadeInUp}>
-              <h2 className="text-sm font-semibold text-foreground">프로젝트 개요</h2>
+              <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
+                <span className="h-4 w-1 rounded-full bg-primary" />
+                프로젝트 개요
+              </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {project.description}
+                <RichText text={project.description} autoTokens />
               </p>
             </motion.div>
 
             {/* Highlights */}
             <motion.div variants={fadeInUp}>
-              <h2 className="text-sm font-semibold text-foreground">주요 성과</h2>
+              <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
+                <span className="h-4 w-1 rounded-full bg-primary" />
+                주요 성과
+              </h2>
               <ul className="mt-3 space-y-2.5">
                 {project.highlights.map((highlight, i) => (
                   <li
@@ -169,7 +176,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                       size={15}
                       className="mt-0.5 shrink-0 text-primary"
                     />
-                    <span>{highlight}</span>
+                    <RichText text={highlight} emphasizeLead autoTokens />
                   </li>
                 ))}
               </ul>
