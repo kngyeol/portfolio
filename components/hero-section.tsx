@@ -23,13 +23,9 @@ export function HeroSection() {
         className="relative z-10 mx-auto max-w-3xl text-center"
       >
         {/* Eyebrow */}
-        <motion.div variants={fadeInUp} className="mb-6 flex items-center justify-center gap-2">
+        <motion.div variants={fadeInUp} className="mb-6">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             {profile.role}
-          </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-[11px] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Open to Opportunities
           </span>
         </motion.div>
 
