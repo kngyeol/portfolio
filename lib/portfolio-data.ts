@@ -260,7 +260,7 @@ export const projects: Project[] = [
       "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
       "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN(0x200)을 매핑해 반복 검증",
     ],
-    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/cover.png", alt: "SkyAutonet 자율주행 HMI" },
+    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "SkyAutonet Lv4 운영자 HMI" },
     media: [
       { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-before.png", alt: "Lanelet marker 겹침(전)", caption: "회색 roads marker가 다른 marker를 가림 (수정 전)" },
@@ -319,6 +319,7 @@ export const projects: Project[] = [
       { type: "video", src: "/projects/scv/sils-scaling.mp4", alt: "SILS 후보 스케일링", caption: "24 worker 후보 병렬 평가 (real2sim 루프)" },
       { type: "video", src: "/projects/scv/robot-arm-failure.mp4", poster: "/projects/scv/robot-arm-failure.jpg", alt: "로봇팔 HITL 실패 패턴", caption: "로봇팔 파지 실패 패턴 → human-in-the-loop 피드백 보정" },
       { type: "image", src: "/projects/scv/hw-arch.png", alt: "SILS/HILS 하드웨어 아키텍처", caption: "SILS/HILS 하드웨어 대시보드 구성" },
+      { type: "image", src: "/projects/scv/encoder-diagnosis.png", alt: "Yahboom 4CH 엔코더 진단", caption: "Yahboom 4CH 보드 엔코더 입력 포트 불량 규명 — 전압 측정 + 교차 테스트로 결정적 격리" },
       {
         type: "document",
         src: "/projects/scv/scv-presentation.pdf",
@@ -439,7 +440,7 @@ export const projects: Project[] = [
       "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
       "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
     ],
-    heroMedia: { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차" },
+    heroMedia: { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "TeamKAI 콘 트랙 자율주행 실주행" },
     media: [
       { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 주행", caption: "주황 콘 트랙 + RC카 실주행" },
       { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
