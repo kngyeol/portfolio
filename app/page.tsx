@@ -33,6 +33,7 @@ const projectCards: ProjectCardData[] = projects.map(
     github,
     metrics,
     status,
+    heroMedia,
   }) => ({
     id,
     slug,
@@ -47,6 +48,7 @@ const projectCards: ProjectCardData[] = projects.map(
     github,
     metrics,
     status,
+    heroMedia,
   }),
 )
 

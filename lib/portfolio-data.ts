@@ -12,7 +12,7 @@ export const profile = {
   title: "Embedded · Robotics · Autonomous Driving Engineer",
   tagline: "인지부터 제어까지, 한 흐름으로.",
   summary:
-    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증을 경험했습니다. LLM 명령 브리지부터 센서·제어·운영 도구까지 — 직접 만들고 실차·실장비로 검증합니다.",
+    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증을 경험했습니다. LLM 명령 브리지부터 센서, 제어, 운영 도구까지 직접 만들고 실차와 실장비로 검증합니다.",
   contact: {
     email: "henry3447@naver.com",
     github: "https://github.com/kngyeol",
@@ -216,6 +216,7 @@ export type ProjectCardData = Pick<
   | "github"
   | "metrics"
   | "status"
+  | "heroMedia"
 >
 
 export const projects: Project[] = [

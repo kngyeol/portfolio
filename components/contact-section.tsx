@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react"
 import type { Profile } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
+import { SectionHeading } from "./section-heading"
 
 export function ContactSection({ profile }: { profile: Profile }) {
   const links = [
@@ -33,30 +34,27 @@ export function ContactSection({ profile }: { profile: Profile }) {
   }[]
 
   return (
-    <section id="contact" className="px-6 py-24 lg:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="contact" className="px-5 py-24 sm:px-6 lg:py-32">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="mx-auto max-w-xl text-center"
+          className="mx-auto max-w-2xl"
         >
           <motion.div variants={fadeInUp}>
-            <h2 className="text-sm font-medium uppercase tracking-widest text-primary">
-              Contact
-            </h2>
-            <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
-              연락하기
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              프로젝트 협업이나 채용 관련 문의는 언제든 환영합니다.
-            </p>
+            <SectionHeading
+              index="05"
+              eyebrow="Contact"
+              title="다음 시스템을 함께 만들 준비가 되어 있습니다."
+              description="프로젝트 협업이나 채용 관련 문의는 아래 채널로 연락해 주세요."
+            />
           </motion.div>
 
           <motion.div
             variants={fadeInUp}
-            className="mt-10 flex flex-col gap-3"
+            className="mt-10 grid gap-3 sm:grid-cols-2"
           >
             {links.map((link) => (
               <a
@@ -64,17 +62,17 @@ export function ContactSection({ profile }: { profile: Profile }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border bg-card px-5 py-4 transition-all hover:border-primary/30 hover:shadow-[0_0_20px_rgba(242,107,29,0.06)]"
+                className="group flex min-w-0 items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 shadow-[0_10px_30px_rgba(23,24,22,0.04)] transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-[0_16px_40px_rgba(23,24,22,0.08)]"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     {link.icon}
                   </div>
-                  <div className="text-left">
+                  <div className="min-w-0 text-left">
                     <p className="text-xs text-muted-foreground">
                       {link.label}
                     </p>
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-anywhere text-sm font-medium text-foreground">
                       {link.value}
                     </p>
                   </div>
