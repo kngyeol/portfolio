@@ -35,14 +35,13 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
 | **Fire Detection Drone** | 화재/연기 탐지 (mAP50: 0.867) | YOLOv9, TensorRT |
-| **Divery** | 다이빙 로그북 AI 자동 생성 | YOLO-World, BioCLIP |
+| **Divary** | 다이빙 로그북 AI 자동 생성 | YOLO-World, BioCLIP-2 |
 | **Korean VQA** | VLM 기반 4지선다 VQA | Qwen-VL, LoRA |
 
 ### 임베디드 / FPGA
 
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
-| **CAN MultiECU HILS** | CAN 이중화 검증 플랫폼 | STM32, FreeRTOS, CAN |
 | **ResNet50 MAC** | FPGA CNN 추론 가속기 | Verilog, AXI DMA |
 
 ## 프로젝트 미리보기
@@ -56,7 +55,7 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 ### Fire & Smoke Detection Drone
 
 - YOLOv9-c 화재/연기 탐지
-- mAP50: 0.867, 4.6ms 추론
+- mAP50: 0.867, RTX 4090 기준 YOLO 추론 4.6ms
 - Lite-Mono 깊이 추정
 
 ## 로컬 실행
@@ -96,7 +95,7 @@ pnpm build
 
 ## 연락처
 
-- **Email**: kngyeol@gmail.com
+- **Email**: henry3447@naver.com
 - **GitHub**: [@kngyeol](https://github.com/kngyeol)
 
 ---

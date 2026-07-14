@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { MotionProvider } from '@/components/motion-provider'
 import { siteConfig } from '@/lib/portfolio-data'
 import './globals.css'
 
@@ -48,9 +49,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" className={`scroll-smooth ${geist.variable} ${geistMono.variable}`}>
+    <html
+      lang="ko"
+      data-scroll-behavior="smooth"
+      className={`scroll-smooth ${geist.variable} ${geistMono.variable}`}
+    >
       <body className="font-sans antialiased">
-        {children}
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg transition-transform focus:translate-y-0"
+        >
+          본문 바로가기
+        </a>
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
       </body>
     </html>

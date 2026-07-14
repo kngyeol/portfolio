@@ -9,7 +9,7 @@ import {
   Monitor,
   Radio,
 } from "lucide-react"
-import { skills } from "@/lib/portfolio-data"
+import type { Skills } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -21,7 +21,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   프론트엔드: <Monitor size={18} />,
 }
 
-export function SkillsSection() {
+export function SkillsSection({ skills }: { skills: Skills }) {
   return (
     <section id="skills" className="px-6 py-24 lg:py-32 bg-secondary/30">
       <div className="mx-auto max-w-5xl">

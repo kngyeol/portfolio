@@ -15,7 +15,7 @@ import {
   Users,
   Github,
 } from "lucide-react"
-import { projects, categories, type Project } from "@/lib/portfolio-data"
+import type { Category, ProjectCardData } from "@/lib/portfolio-data"
 import { fadeInUp, scaleIn } from "@/lib/animations"
 import { RichText } from "./rich-text"
 
@@ -27,7 +27,13 @@ const categoryIconMap: Record<string, React.ReactNode> = {
   "임베디드 / FPGA": <Cpu size={16} />,
 }
 
-export function ProjectsSection() {
+export function ProjectsSection({
+  projects,
+  categories,
+}: {
+  projects: ProjectCardData[]
+  categories: readonly Category[]
+}) {
   const [activeCategory, setActiveCategory] = useState("전체")
 
   const filtered =
@@ -101,7 +107,7 @@ export function ProjectsSection() {
   )
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project }: { project: ProjectCardData }) {
   const techList = Array.isArray(project.techStack)
     ? project.techStack
     : [...Object.values(project.techStack).flat()]
