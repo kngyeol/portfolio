@@ -20,6 +20,8 @@ export const profile = {
   },
 }
 
+export type Profile = typeof profile
+
 export const skills: Record<string, string[]> = {
   "자율주행/로봇": [
     "ROS",
@@ -58,6 +60,8 @@ export const skills: Record<string, string[]> = {
   프론트엔드: ["Vue 3", "React", "Next.js", "TypeScript", "Pinia", "Firebase"],
 }
 
+export type Skills = typeof skills
+
 export interface Experience {
   id: number
   company: string
@@ -82,7 +86,7 @@ export const experiences: Experience[] = [
       "CAN Converter: ROS2 토픽 ↔ CAN 메시지 변환, 쿼터니언→Yaw 변환",
       "HILS 시뮬레이션: vcan 기반 가상 CAN 환경 구축, 시나리오 검증",
       "HMI 통합: Qt5 UI 버그 수정, 토픽 데이터 타입 동기화",
-      "fodro_main_processor: 33 commits / skyautonet_lv4_main: 10 commits",
+      "경로 생성, CAN 변환, HILS와 HMI 연동을 실제 운영 시나리오에서 통합",
     ],
     techStack: ["ROS2 Humble", "Autoware Universe", "C++", "CAN (SocketCAN)", "Qt5", "Lanelet2", "Python"],
   },
@@ -196,6 +200,24 @@ export const categories = [
   { name: "임베디드 / FPGA", icon: "cpu" },
 ] as const
 
+export type Category = (typeof categories)[number]
+export type ProjectCardData = Pick<
+  Project,
+  | "id"
+  | "slug"
+  | "title"
+  | "subtitle"
+  | "period"
+  | "organization"
+  | "description"
+  | "role"
+  | "techStack"
+  | "category"
+  | "github"
+  | "metrics"
+  | "status"
+>
+
 export const projects: Project[] = [
   // ===== Skyautonet 인턴 프로젝트 =====
   {
@@ -217,7 +239,7 @@ export const projects: Project[] = [
     role: ["FOD Manager", "CAN Converter", "HILS"],
     techStack: ["C++", "ROS2", "Autoware", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
     category: "자율주행 / 로봇",
-    metrics: ["4개월 실무 운영", "40+ 일간 보고", "9+ 주간 보고"],
+    metrics: ["vcan HILS", "CAN byte packing", "다중 FOD 우선순위"],
     status: "completed",
     troubleshooting: [
       "Yaw·좌표 정규화: HILS 검증 중 변환한 yaw·좌표가 차량 CAN 프로토콜과 어긋남(yaw −180~180° vs CAN 0~360°, local pose(map) vs GNSS WGS84) → 음수 yaw에 360°를 더해 정규화하고 map_projector로 WGS84 역투영, offset/factor로 raw value 생성해 EKF localization 연결을 HILS에서 반복 검증",
@@ -228,7 +250,7 @@ export const projects: Project[] = [
     media: [
       { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력", caption: "쿼터니언→Yaw rad→deg + 음수 +360°로 0~360° 정규화 후 정상 출력" },
       { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "map_projector transient_local 에러", caption: "Invalid map projector type — QoS transient_local 미설정 시 노드 종료" },
-      { type: "image", src: "/projects/fodro/can-frame-def.png", alt: "CAN 프레임 정의", caption: "0x100 lat/lon(factor 1e-7)·0x101 Yaw(0~360) CAN 프레임 정의" },
+      { type: "image", src: "/projects/fodro/can-frame-def.png", alt: "CAN 프레임 정의", caption: "위치·방향 데이터를 차량 CAN 프레임에 맞게 변환한 정의" },
       { type: "image", src: "/projects/fodro/can-send-dump.png", alt: "CAN 송신 덤프", caption: "hil_actuator CAN 송신 + candump 확인" },
       { type: "image", src: "/projects/fodro/fod-db-sort-code.png", alt: "다중 FOD DB 정렬 코드", caption: "FodDB(): 반대방향 pose 우선 + 거리순 정렬" },
       { type: "image", src: "/projects/fodro/reverse-mode-rviz.png", alt: "REVERSE 모드 rviz", caption: "FOD 후진(REVERSE) 모드 — R gear, 후진 경로" },
@@ -247,18 +269,18 @@ export const projects: Project[] = [
     highlights: [
       "Lanelet2 기반 target lanelet 탐색 + distance-limited route 생성 + 잔여거리 기반 reroute 구현",
       "외부(HMI) 차선변경 service 호출 후 route reset, DrivingStatus 구독·flag 초기화로 변경 차선 기준 경로 재생성",
-      "Lv4 HILS: OperationMode·DrivingStatus 기반 control enable 분기, actuator/state CAN(0x200) 매핑",
-      "상태 CAN(0x200) 매핑·HILS 반복 검증 — 임베디드 통신·검증 경험",
+      "Lv4 HILS: OperationMode·DrivingStatus 기반 control enable 분기, actuator/state CAN 매핑",
+      "상태 CAN 매핑·HILS 반복 검증 — 임베디드 통신·검증 경험",
     ],
     role: ["Planning Manager", "HILS", "HMI 연동"],
     techStack: ["C++", "ROS2", "Autoware", "Lanelet2", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
     category: "자율주행 / 로봇",
-    metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "상태 CAN 0x200"],
+    metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "상태 CAN 매핑"],
     status: "completed",
     troubleshooting: [
       "Lane-change Reroute: 외부(HMI) 차선변경 후 rerouting이 이전 차선 기준으로 생성돼 차량이 바뀐 차선을 따라가지 못함 → DrivingStatus(LANE_CHANGE·LEFT/RIGHT) 구독 + 방향별 lane-change service 호출 + AUTONOMOUS 복귀 시 flag 초기화 + route reset으로 변경 차선 기준 경로 재생성",
       "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
-      "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN(0x200)을 매핑해 반복 검증",
+      "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN을 매핑해 반복 검증",
     ],
     heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "SkyAutonet Lv4 운영자 HMI" },
     media: [
@@ -268,7 +290,7 @@ export const projects: Project[] = [
       { type: "image", src: "/projects/skyautonet-lv4/lane-change-rviz.png", alt: "차선변경 경로 rviz", caption: "external lane change 후 변경 차선 기준 경로 생성" },
       { type: "image", src: "/projects/skyautonet-lv4/lane-change-service.png", alt: "lane change service 코드", caption: "external_request_lane_change service 연동 코드" },
       { type: "image", src: "/projects/skyautonet-lv4/getendoflane-footprint.png", alt: "GetEndOfLaneGoal footprint", caption: "footprint 축소로 차선 내 158m route 정상 생성" },
-      { type: "image", src: "/projects/skyautonet-lv4/hils-state-can-code.png", alt: "HILS state CAN 코드", caption: "create_state_msg() — autonomous_mode 분기, State CAN 0x200" },
+      { type: "image", src: "/projects/skyautonet-lv4/hils-state-can-code.png", alt: "HILS state CAN 코드", caption: "자율주행 모드 분기와 차량 상태 CAN 매핑" },
     ],
   },
 
@@ -278,7 +300,7 @@ export const projects: Project[] = [
     slug: "scv",
     title: "SCV - Smart Companion Vehicle",
     subtitle: "자연어 명령 기반 이동형 AI 홈 어시스턴트",
-    period: "2026.03 - 2026.05",
+    period: "2026.03 - 2026.06",
     organization: "TEAM A207",
     description:
       "자연어 명령을 실행 가능한 주행·정렬·조작 흐름으로 변환하고, ROS2/Nav2 주행과 비전 정렬, 로봇팔 런타임을 연결한 Smart Companion Vehicle 프로젝트입니다.",
@@ -382,7 +404,7 @@ export const projects: Project[] = [
       "Dijkstra 경로탐색, 이상 탐지 시 대체 경로 재할당",
       "Spring Boot 4.0 백엔드 + Vue 3 키오스크 + PortOne 결제",
     ],
-    role: ["AI", "Embedded", "Hardware", "Backend"],
+    role: ["AI", "Embedded Integration", "System Integration"],
     techStack: [
       "ROS2 Humble",
       "Python",
@@ -426,14 +448,14 @@ export const projects: Project[] = [
       "LiDAR 콘 검출: RANSAC + 유클리디안 클러스터링 (0~20m, PCL)",
       "YOLOv5/v8 콘 객체 검출 + 카메라-LiDAR 센서퓨전",
       "Bezier 경로 생성 + Stanley/Pure Pursuit 추종 (10Hz)",
-      "CAN 버스 조향 + ESP32 PID 속도 제어 (Kp=90, Ki=0.025, Kd=20)",
-      "18개 FSM 기반 상태 관리, E-Stop 안전장치",
+      "CAN 버스 조향 + ESP32 PID 속도 제어",
+      "E-Stop 기반 비상 정지 안전장치",
     ],
     role: ["인지 파트장", "Perception", "Planning"],
     techStack: ["ROS Noetic", "C++", "Python", "PCL", "OpenCV", "PyTorch", "SocketCAN", "ESP32"],
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamKAI",
-    metrics: ["18개 FSM", "센서 5종 융합"],
+    metrics: ["LiDAR 콘 검출", "CAN · ESP32 제어"],
     status: "completed",
     troubleshooting: [
       "LiDAR 과부하: 입력 pointcloud가 너무 비대해 필요한 정보 추출이 어렵고 처리 과부하 발생 → 콘 트랙 정보만 남기도록 전처리를 하나씩 조합·검증하며 최적 파이프라인 구축",
@@ -522,7 +544,7 @@ export const projects: Project[] = [
       "fire: P 0.876 / R 0.828 / mAP50 0.881",
       "smoke: P 0.792 / R 0.814 / mAP50 0.854",
       "Lite-Mono 단안 깊이 추정으로 상대 거리 파악",
-      "Structured Pruning + TensorRT 최적화 (4.6ms 추론)",
+      "Structured Pruning + TensorRT 최적화 (YOLO 추론: RTX 4090 4.6ms, Jetson Orin 212ms)",
     ],
     role: ["전체"],
     techStack: ["YOLOv9", "Lite-Mono", "TensorRT", "Structured Pruning", "Jetson Orin", "Gradio"],
@@ -578,21 +600,21 @@ export const projects: Project[] = [
     description:
       "다이빙 영상 업로드 시 AI가 하이라이트 추출 → 물고기 탐지/분류 → LLM 기반 로그북 자동 생성하는 서비스.",
     highlights: [
-      "YOLO-World + NIMA 기반 하이라이트 자동 추출 (상위 5 프레임)",
-      "CFD-YOLOv12x 물고기 탐지 + BioCLIP 분류",
-      "ByteTrack 객체 추적, K-Means 클러스터링",
+      "YOLO-World + NIMA 기반 하이라이트 선별 및 중복 제거",
+      "CFD-YOLOv12x 물고기 탐지 + BioCLIP-2 분류",
+      "ByteTrack 객체 추적과 임베딩 기반 중복 제거",
       "LLM 기반 다이빙 로그북 자동 생성",
       "AWS SQS + GPU 워커 기반 분산 처리",
     ],
     role: ["Full-Stack", "DevOps", "AI"],
-    techStack: ["React", "React Native", "Spring Boot", "YOLO-World", "BioCLIP", "Docker", "Jenkins", "AWS SQS"],
+    techStack: ["React", "Spring Boot", "PostgreSQL", "Redis", "YOLO-World", "BioCLIP-2", "Docker", "Jenkins", "AWS SQS"],
     category: "웹 / 풀스택",
-    metrics: ["76/103 전체 커밋", "FE · BE · Infra 전 영역"],
+    metrics: ["SQS GPU 워커", "Docker · Jenkins 통합"],
     status: "completed",
     heroMedia: { type: "image", src: "/projects/divary/cover.png", alt: "Divary 다이빙 로그북 앱" },
     media: [
       { type: "image", src: "/projects/divary/fish-detection.png", alt: "AI 어류 탐지/분류", caption: "수중 영상 어류 bounding box + ID 라벨" },
-      { type: "image", src: "/projects/divary/model-eval.png", alt: "어류 분류 모델 평가", caption: "mAP@0.50 = 0.7962, best threshold 0.45" },
+      { type: "image", src: "/projects/divary/model-eval.png", alt: "어류 분류 모델 평가", caption: "어류 분류 모델 평가 화면" },
       { type: "image", src: "/projects/divary/flow.png", alt: "서비스 플로우", caption: "가입 → 업로드 → AI 분석 → 로그 → 통계" },
     ],
   },
@@ -694,28 +716,6 @@ export const projects: Project[] = [
 
   // ===== 임베디드 / FPGA =====
   {
-    id: 12,
-    slug: "can-multiecu-hils",
-    title: "CAN MultiECU HILS",
-    subtitle: "CAN 이중화 검증 플랫폼",
-    period: "2026.03 - 2026.04",
-    organization: "개인 프로젝트",
-    description:
-      "STM32 F446RE 2대로 Sensor ECU / Control ECU 분리. CAN A/B 이중화 + Fail-over, FreeRTOS 멀티태스킹, Python HILS 시나리오 검증.",
-    highlights: [
-      "Sensor ECU: 스로틀 ADC + MPU6050 IMU + CAN 송신 (5개 태스크)",
-      "Control ECU: CAN 수신 + PID 모터 제어 + 안전 상태머신 (5개 태스크)",
-      "CAN A(주) + CAN B(백업) 이중화, Heartbeat 기반 Fail-over",
-      "Python HILS: JSON 시나리오 주입, 로깅, 리플레이",
-      "상태머신: NORMAL → WARNING → DANGER → E-STOP",
-    ],
-    role: ["전체"],
-    techStack: ["STM32", "FreeRTOS", "CAN", "HAL", "Python", "python-can"],
-    category: "임베디드 / FPGA",
-    metrics: ["10개 태스크", "7개 CAN 메시지", "CAN 이중화"],
-    status: "in-progress",
-  },
-  {
     id: 13,
     slug: "resnet50-accelerator",
     title: "ResNet50 MAC Accelerator",
@@ -730,14 +730,14 @@ export const projects: Project[] = [
       "Weight FIFO 캐싱 → 1x1 Conv에서 FxE번 재사용",
       "ImageNet 1000-class ResNet50 전체 추론",
     ],
-    role: ["RTL Design", "Software"],
+    role: ["팀 프로젝트 참여"],
     techStack: ["Vivado", "Verilog", "Xilinx SDK", "C", "AXI DMA", "AXI4-Lite"],
     category: "임베디드 / FPGA",
     github: "https://github.com/kngyeol/resnet50-mac-accelerator",
     status: "completed",
     heroMedia: { type: "image", src: "/projects/resnet50-accelerator/benchmark.png", alt: "벤치마크 비교" },
     media: [
-      { type: "image", src: "/projects/resnet50-accelerator/benchmark.png", alt: "벤치마크 비교", caption: "Reference 269s vs Optimized 197s — HW 가속 x1.36 faster" },
+      { type: "image", src: "/projects/resnet50-accelerator/benchmark.png", alt: "벤치마크 비교", caption: "Reference 경로와 HW 가속 경로 비교" },
       { type: "image", src: "/projects/resnet50-accelerator/layers.png", alt: "레이어 차원", caption: "conv 레이어별 채널/커널 차원" },
     ],
   },

@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/portfolio-data"
 import { GalleryPageClient } from "@/components/gallery-page-client"
@@ -11,13 +12,20 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = getProjectBySlug(slug)
   if (!project) return { title: "Gallery Not Found" }
   return {
     title: `${project.title} 갤러리 | 김동열 포트폴리오`,
     description: `${project.title} 프로젝트 미디어 갤러리`,
+    alternates: {
+      canonical: `/projects/${project.slug}/gallery`,
+    },
+    robots: {
+      index: false,
+      follow: true,
+    },
   }
 }
 

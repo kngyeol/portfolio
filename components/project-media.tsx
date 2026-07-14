@@ -74,6 +74,7 @@ export function ProjectMediaPreview({
             src={media.poster}
             alt={media.alt}
             fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             priority={priority}
             className="object-cover transition-transform group-hover:scale-105"
           />
@@ -113,6 +114,7 @@ export function ProjectMediaPreview({
       src={media.src}
       alt={media.alt}
       fill
+      sizes={variant === "hero" ? "100vw" : "(max-width: 640px) 100vw, 50vw"}
       priority={priority}
       className={cn(
         variant === "hero" ? "object-cover" : "object-cover transition-transform group-hover:scale-105",

@@ -2,36 +2,36 @@
 
 import { motion } from "framer-motion"
 import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react"
-import { profile } from "@/lib/portfolio-data"
+import type { Profile } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
-const links = [
-  profile.contact.email && {
-    label: "Email",
-    href: `mailto:${profile.contact.email}`,
-    icon: <Mail size={18} />,
-    value: profile.contact.email,
-  },
-  profile.contact.github && {
-    label: "GitHub",
-    href: profile.contact.github,
-    icon: <Github size={18} />,
-    value: profile.contact.github.replace(/^https?:\/\//, ""),
-  },
-  profile.contact.linkedin && {
-    label: "LinkedIn",
-    href: profile.contact.linkedin,
-    icon: <Linkedin size={18} />,
-    value: "LinkedIn",
-  },
-].filter(Boolean) as {
-  label: string
-  href: string
-  icon: React.ReactNode
-  value: string
-}[]
+export function ContactSection({ profile }: { profile: Profile }) {
+  const links = [
+    profile.contact.email && {
+      label: "Email",
+      href: `mailto:${profile.contact.email}`,
+      icon: <Mail size={18} />,
+      value: profile.contact.email,
+    },
+    profile.contact.github && {
+      label: "GitHub",
+      href: profile.contact.github,
+      icon: <Github size={18} />,
+      value: profile.contact.github.replace(/^https?:\/\//, ""),
+    },
+    profile.contact.linkedin && {
+      label: "LinkedIn",
+      href: profile.contact.linkedin,
+      icon: <Linkedin size={18} />,
+      value: "LinkedIn",
+    },
+  ].filter(Boolean) as {
+    label: string
+    href: string
+    icon: React.ReactNode
+    value: string
+  }[]
 
-export function ContactSection() {
   return (
     <section id="contact" className="px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-5xl">

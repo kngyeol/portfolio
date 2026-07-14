@@ -2,10 +2,18 @@
 
 import { motion } from "framer-motion"
 import { GraduationCap, Award, Languages, Trophy } from "lucide-react"
-import { education, awards, certificates } from "@/lib/portfolio-data"
+import type { Award as AwardData, Certificate, Education } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
-export function EducationSection() {
+export function EducationSection({
+  education,
+  awards,
+  certificates,
+}: {
+  education: Education[]
+  awards: AwardData[]
+  certificates: Certificate[]
+}) {
   return (
     <section id="education" className="px-6 py-24 lg:py-32 bg-secondary/30">
       <div className="mx-auto max-w-5xl">

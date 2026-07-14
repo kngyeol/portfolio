@@ -1,11 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Briefcase, Calendar, MapPin, GitCommit } from "lucide-react"
-import { experiences } from "@/lib/portfolio-data"
+import { Briefcase, Calendar } from "lucide-react"
+import type { Experience } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
-export function ExperienceSection() {
+export function ExperienceSection({
+  experiences,
+}: {
+  experiences: Experience[]
+}) {
   return (
     <section id="experience" className="px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-5xl">

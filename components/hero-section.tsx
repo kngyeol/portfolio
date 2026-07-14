@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Github, Linkedin, Mail, ChevronDown } from "lucide-react"
-import { profile } from "@/lib/portfolio-data"
+import type { Profile } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
 
-export function HeroSection() {
+export function HeroSection({ profile }: { profile: Profile }) {
   return (
     <section
       id="about"
