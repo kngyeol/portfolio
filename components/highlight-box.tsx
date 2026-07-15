@@ -46,7 +46,7 @@ export function HighlightBox({ variant, title, items }: HighlightBoxProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className={`rounded-xl border-2 ${config.borderColor} ${config.bgColor} p-5`}
+      className={`rounded-2xl border ${config.borderColor} ${config.bgColor} p-5 sm:p-6`}
     >
       <h3 className={`flex items-center gap-2 text-sm font-semibold ${config.textColor}`}>
         {config.icon}
@@ -56,7 +56,7 @@ export function HighlightBox({ variant, title, items }: HighlightBoxProps) {
         {items.map((item, i) => (
           <li
             key={i}
-            className="flex items-start gap-2.5 text-sm text-muted-foreground"
+            className="text-safe-wrap flex items-start gap-3 text-sm leading-7 text-muted-foreground"
           >
             <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${config.textColor.replace("text-", "bg-")}`} />
             <RichText text={item} emphasizeLead={variant === "trouble"} autoTokens />

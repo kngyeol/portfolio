@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import type { Skills } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
+import { SectionHeading } from "./section-heading"
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "자율주행/로봇": <Bot size={18} />,
@@ -23,20 +24,19 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 export function SkillsSection({ skills }: { skills: Skills }) {
   return (
-    <section id="skills" className="px-6 py-24 lg:py-32 bg-secondary/30">
-      <div className="mx-auto max-w-5xl">
+    <section id="skills" className="border-y border-border/70 bg-secondary/45 px-5 py-24 sm:px-6 lg:py-32">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
         >
-          <h2 className="text-sm font-medium uppercase tracking-widest text-primary">
-            Skills
-          </h2>
-          <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
-            기술 스택
-          </p>
+          <SectionHeading
+            eyebrow="Skills"
+            title="도구보다 연결 방식에 집중합니다."
+            description="자율주행과 로보틱스 시스템을 구성하는 인지, 통신, 제어, 운영 기술을 프로젝트 안에서 함께 사용했습니다."
+          />
         </motion.div>
 
         <motion.div
@@ -44,16 +44,16 @@ export function SkillsSection({ skills }: { skills: Skills }) {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {Object.entries(skills).map(([category, items]) => (
             <motion.div
               key={category}
               variants={fadeInUp}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_24px_rgba(242,107,29,0.06)]"
+              className="group rounded-2xl border border-border/90 bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.035)] transition-all hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_18px_45px_rgba(23,24,22,0.08)] sm:p-6"
             >
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   {categoryIcons[category]}
                 </div>
                 <h3 className="text-sm font-semibold text-foreground">
@@ -64,7 +64,7 @@ export function SkillsSection({ skills }: { skills: Skills }) {
                 {items.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-block rounded-md border border-border bg-secondary px-2.5 py-1 text-xs text-secondary-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  className="text-anywhere inline-block rounded-lg border border-border/80 bg-secondary/75 px-2.5 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:border-primary/40 hover:bg-primary/8 hover:text-primary"
                   >
                     {skill}
                   </span>

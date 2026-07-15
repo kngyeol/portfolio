@@ -4,14 +4,15 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import {
   ArrowLeft,
-  Calendar,
-  Building2,
-  Users,
-  Github,
-  ExternalLink,
-  CheckCircle2,
   BarChart3,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  ExternalLink,
+  Github,
   Images,
+  Layers3,
+  Users,
 } from "lucide-react"
 import {
   getProjectHeroMedia,
@@ -41,148 +42,158 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Fixed Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-6">
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+            className="inline-flex min-w-0 items-center gap-2 rounded-lg px-1 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
-            <ArrowLeft size={16} />
-            프로젝트 목록
+            <ArrowLeft size={16} className="shrink-0" />
+            <span className="truncate">프로젝트 목록</span>
           </Link>
-          {hasGallery && (
-            <Link
-              href={`/projects/${project.slug}/gallery`}
-              className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:border-primary hover:text-primary"
-            >
-              <Images size={14} />
-              갤러리
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                aria-label="GitHub 저장소"
+              >
+                <Github size={15} />
+              </a>
+            )}
+            {hasGallery && (
+              <Link
+                href={`/projects/${project.slug}/gallery`}
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/40 hover:text-primary"
+              >
+                <Images size={14} />
+                갤러리
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
-      {/* Hero Media */}
-      <section className="relative h-[40vh] w-full overflow-hidden bg-gradient-to-br from-primary/20 via-background to-background sm:h-[50vh]">
-        {heroMedia ? (
-          <ProjectMediaPreview media={heroMedia} variant="hero" priority />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-                <span className="text-3xl font-bold text-primary">
-                  {project.title.charAt(0)}
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground">{project.category}</p>
-            </div>
-          </div>
-        )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-      </section>
+      <section className="relative overflow-hidden border-b border-border/70 bg-secondary/45 px-5 py-12 sm:px-6 sm:py-16 lg:py-20">
+        <div className="technical-grid pointer-events-none absolute inset-0 opacity-45 [mask-image:linear-gradient(to_right,black,transparent)]" />
+        <div className="pointer-events-none absolute -left-24 top-4 h-72 w-72 rounded-full bg-primary/10 blur-[100px]" />
 
-      {/* Content */}
-      <main className="mx-auto max-w-5xl px-6 py-10">
-        <div className="grid gap-10 lg:grid-cols-[1fr_280px]">
-          {/* Left Column - Main Content */}
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="space-y-8"
+            className="min-w-0"
           >
-            {/* Project Header */}
-            <motion.div variants={fadeInUp}>
-              <div className="flex items-start gap-3">
-                <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-                  {project.title}
-                </h1>
-                {project.status === "in-progress" && (
-                  <span className="shrink-0 rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-semibold text-white">
-                    개발중
-                  </span>
-                )}
-              </div>
-              {project.subtitle && (
-                <p className="mt-2 text-base font-medium text-foreground/75">
-                  {project.subtitle}
-                </p>
-              )}
-
-              {/* Meta */}
-              <div className="mt-4 flex flex-wrap gap-3">
-                {project.period && (
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">
-                    <Calendar size={13} />
-                    {project.period}
-                  </span>
-                )}
-                {project.organization && (
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">
-                    <Building2 size={13} />
-                    {project.organization}
-                  </span>
-                )}
-                {project.role.length > 0 && (
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">
-                    <Users size={13} />
-                    {project.role.join(", ")}
-                  </span>
-                )}
-              </div>
-
-              {/* GitHub */}
-              {project.github && (
-                <div className="mt-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary hover:text-primary"
-                  >
-                    <Github size={16} />
-                    GitHub 저장소
-                    <ExternalLink size={14} className="opacity-60" />
-                  </a>
-                </div>
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+                {project.category}
+              </span>
+              {project.status === "in-progress" && (
+                <span className="rounded-full bg-amber-500 px-3 py-1.5 text-[10px] font-semibold text-white">
+                  개발중
+                </span>
               )}
             </motion.div>
 
-            {/* Description */}
-            <motion.div variants={fadeInUp}>
-              <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
-                <span className="h-4 w-1 rounded-full bg-primary" />
-                프로젝트 개요
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <motion.h1
+              variants={fadeInUp}
+              className="text-safe-wrap mt-5 text-4xl font-bold leading-[1.1] tracking-[-0.05em] text-foreground sm:text-5xl"
+            >
+              {project.title}
+            </motion.h1>
+            {project.subtitle && (
+              <motion.p
+                variants={fadeInUp}
+                className="text-safe-wrap mt-4 text-base font-medium leading-7 text-muted-foreground sm:text-lg"
+              >
+                {project.subtitle}
+              </motion.p>
+            )}
+
+            <motion.div variants={fadeInUp} className="mt-7 flex flex-wrap gap-2">
+              {project.period && (
+                <MetaBadge icon={<Calendar size={13} />} text={project.period} />
+              )}
+              {project.organization && (
+                <MetaBadge icon={<Building2 size={13} />} text={project.organization} />
+              )}
+              {project.role.length > 0 && (
+                <MetaBadge icon={<Users size={13} />} text={project.role.join(", ")} />
+              )}
+            </motion.div>
+
+            {project.github && (
+              <motion.div variants={fadeInUp} className="mt-7">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-background shadow-[0_10px_26px_rgba(23,24,22,0.16)] transition-all hover:-translate-y-0.5 hover:bg-primary"
+                >
+                  <Github size={16} />
+                  GitHub 저장소
+                  <ExternalLink size={13} className="opacity-70" />
+                </a>
+              </motion.div>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="surface-shadow relative aspect-[4/3] min-w-0 overflow-hidden rounded-[2rem] border border-border bg-card"
+          >
+            {heroMedia ? (
+              <ProjectMediaPreview media={heroMedia} variant="hero" priority />
+            ) : (
+              <div className="technical-grid flex h-full w-full items-center justify-center bg-gradient-to-br from-card to-primary/10">
+                <div className="text-center">
+                  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-foreground text-3xl font-bold text-background">
+                    {project.title.charAt(0)}
+                  </div>
+                  <p className="mt-4 text-sm font-medium text-muted-foreground">
+                    {project.category}
+                  </p>
+                </div>
+              </div>
+            )}
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/20" />
+          </motion.div>
+        </div>
+      </section>
+
+      <main className="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-16">
+        <div className="grid min-w-0 gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="min-w-0 space-y-10"
+          >
+            <ContentSection title="프로젝트 개요">
+              <p className="text-safe-wrap text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
                 <RichText text={project.description} autoTokens />
               </p>
-            </motion.div>
+            </ContentSection>
 
-            {/* Highlights */}
-            <motion.div variants={fadeInUp}>
-              <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
-                <span className="h-4 w-1 rounded-full bg-primary" />
-                주요 성과
-              </h2>
-              <ul className="mt-3 space-y-2.5">
+            <ContentSection title="주요 구현">
+              <ul className="space-y-3">
                 {project.highlights.map((highlight, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                    className="text-safe-wrap flex items-start gap-3 text-sm leading-7 text-muted-foreground sm:text-base"
                   >
-                    <CheckCircle2
-                      size={15}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
+                    <CheckCircle2 size={16} className="mt-1 shrink-0 text-primary" />
                     <RichText text={highlight} emphasizeLead autoTokens />
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </ContentSection>
 
-            {/* Custom Sections (Flowchart, Table) */}
             {project.sections?.map((section, i) => {
               if (section.type === "flowchart") {
                 return (
@@ -207,7 +218,6 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               return null
             })}
 
-            {/* Role Highlight Box */}
             {project.role.length > 0 && (
               <HighlightBox
                 variant="role"
@@ -216,7 +226,6 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               />
             )}
 
-            {/* Troubleshooting */}
             {project.troubleshooting && project.troubleshooting.length > 0 && (
               <HighlightBox
                 variant="trouble"
@@ -225,7 +234,6 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               />
             )}
 
-            {/* Future Work */}
             {project.futureWork && project.futureWork.length > 0 && (
               <HighlightBox
                 variant="future"
@@ -234,66 +242,100 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               />
             )}
 
-            {/* Image Gallery */}
             {hasGallery && (
-              <ImageGallery
-                media={media}
-                projectSlug={project.slug}
-                maxPreview={4}
-              />
+              <ImageGallery media={media} projectSlug={project.slug} maxPreview={4} />
             )}
           </motion.div>
 
-          {/* Right Column - Sidebar */}
           <motion.aside
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="space-y-6"
+            className="min-w-0 space-y-5 lg:sticky lg:top-24"
           >
-            {/* Metrics */}
             {project.metrics && project.metrics.length > 0 && (
-              <div className="rounded-xl border border-border bg-card p-5">
-                <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <BarChart3 size={15} className="text-primary" />
-                  핵심 지표
-                </h3>
-                <div className="mt-4 space-y-2">
+              <SidebarCard
+                title="핵심 지표"
+                icon={<BarChart3 size={15} className="text-primary" />}
+              >
+                <div className="space-y-2">
                   {project.metrics.map((metric, i) => (
                     <div
                       key={i}
-                      className="rounded-lg bg-primary/10 px-3 py-2 text-center text-sm font-semibold text-primary"
+                      className="text-safe-wrap rounded-xl border border-primary/15 bg-primary/8 px-3 py-2.5 text-center text-sm font-semibold text-primary"
                     >
                       {metric}
                     </div>
                   ))}
                 </div>
-              </div>
+              </SidebarCard>
             )}
 
-            {/* Tech Stack */}
-            <div className="rounded-xl border border-border bg-card p-5">
-              <h3 className="text-sm font-semibold text-foreground">기술 스택</h3>
-              <div className="mt-4 flex flex-wrap gap-2">
+            <SidebarCard
+              title="기술 스택"
+              icon={<Layers3 size={15} className="text-primary" />}
+            >
+              <div className="flex flex-wrap gap-2">
                 {techList.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"
+                    className="text-anywhere rounded-lg border border-border bg-secondary/70 px-2.5 py-1.5 text-xs font-medium text-secondary-foreground"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-            </div>
-
-            {/* Category */}
-            <div className="rounded-xl border border-border bg-card p-5">
-              <h3 className="text-sm font-semibold text-foreground">카테고리</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{project.category}</p>
-            </div>
+            </SidebarCard>
           </motion.aside>
         </div>
       </main>
+    </div>
+  )
+}
+
+function MetaBadge({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <span className="text-anywhere inline-flex max-w-full items-center gap-1.5 rounded-xl border border-border bg-card/85 px-3 py-2 text-xs font-medium text-secondary-foreground shadow-sm">
+      <span className="shrink-0 text-primary">{icon}</span>
+      {text}
+    </span>
+  )
+}
+
+function ContentSection({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <motion.section variants={fadeInUp}>
+      <h2 className="flex items-center gap-3 text-lg font-bold tracking-[-0.025em] text-foreground">
+        <span className="h-5 w-1.5 rounded-full bg-primary" />
+        {title}
+      </h2>
+      <div className="mt-5">{children}</div>
+    </motion.section>
+  )
+}
+
+function SidebarCard({
+  title,
+  icon,
+  children,
+}: {
+  title: string
+  icon: React.ReactNode
+  children: React.ReactNode
+}) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.04)]">
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        {icon}
+        {title}
+      </h3>
+      <div className="mt-4">{children}</div>
     </div>
   )
 }

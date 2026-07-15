@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Briefcase, Calendar } from "lucide-react"
 import type { Experience } from "@/lib/portfolio-data"
 import { fadeInUp, staggerContainer } from "@/lib/animations"
+import { SectionHeading } from "./section-heading"
 
 export function ExperienceSection({
   experiences,
@@ -11,20 +12,19 @@ export function ExperienceSection({
   experiences: Experience[]
 }) {
   return (
-    <section id="experience" className="px-6 py-24 lg:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="experience" className="px-5 py-24 sm:px-6 lg:py-32">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
         >
-          <h2 className="text-sm font-medium uppercase tracking-widest text-primary">
-            Experience
-          </h2>
-          <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
-            경력
-          </p>
+          <SectionHeading
+            eyebrow="Experience"
+            title="실제 차량 시스템의 경계를 다뤘습니다."
+            description="경로 생성부터 CAN 변환, HILS와 HMI 연동까지 인터페이스 사이의 문제를 분리하고 반복 검증했습니다."
+          />
         </motion.div>
 
         <motion.div
@@ -38,10 +38,10 @@ export function ExperienceSection({
             <motion.div
               key={exp.id}
               variants={fadeInUp}
-              className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(242,107,29,0.08)]"
+              className="surface-shadow group relative overflow-hidden rounded-[1.75rem] border border-border bg-card p-6 transition-all hover:border-primary/35 sm:p-8"
             >
               {/* Color accent bar */}
-              <div className="absolute left-0 top-0 h-full w-1 bg-primary/60" />
+              <div className="absolute left-0 top-0 h-full w-1.5 bg-primary" />
 
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
@@ -49,11 +49,11 @@ export function ExperienceSection({
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Briefcase size={20} />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-bold tracking-[-0.025em] text-foreground">
                         {exp.company}
                       </h3>
-                      <p className="text-sm text-primary">{exp.position}</p>
+                      <p className="text-safe-wrap mt-1 text-sm font-medium text-primary">{exp.position}</p>
                     </div>
                   </div>
 
@@ -64,7 +64,7 @@ export function ExperienceSection({
                     </span>
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-safe-wrap mt-5 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
                     {exp.description}
                   </p>
 
@@ -73,7 +73,7 @@ export function ExperienceSection({
                     {exp.highlights.map((highlight, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2 text-sm text-foreground/80"
+                        className="text-safe-wrap flex items-start gap-3 text-sm leading-6 text-foreground/80"
                       >
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                         {highlight}

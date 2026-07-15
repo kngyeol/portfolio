@@ -12,7 +12,7 @@ export const profile = {
   title: "Embedded · Robotics · Autonomous Driving Engineer",
   tagline: "인지부터 제어까지, 한 흐름으로.",
   summary:
-    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증을 경험했습니다. LLM 명령 브리지부터 센서·제어·운영 도구까지 — 직접 만들고 실차·실장비로 검증합니다.",
+    "ROS2와 C++로 센서, 인지, CAN, 액추에이터를 연결하고 HILS와 SILS로 검증합니다.",
   contact: {
     email: "henry3447@naver.com",
     github: "https://github.com/kngyeol",
@@ -81,9 +81,9 @@ export const experiences: Experience[] = [
     description:
       "Level 4 자율주행 트럭/청소차(FODRo) 개발. ROS2/Autoware 기반 인지-판단-제어 로직 개발 및 CAN 통신, HILS 검증.",
     highlights: [
-      "Planning Manager: Lanelet2 기반 경로 자동 생성, External Lane Change 구현",
-      "FOD Manager: 다중 FOD 클러스터링 + 우선순위 정렬 알고리즘",
-      "CAN Converter: ROS2 토픽 ↔ CAN 메시지 변환, 쿼터니언→Yaw 변환",
+      "경로 계획·재생성: Lanelet2 기반 경로 자동 생성과 외부 차선변경 요청 연동",
+      "FOD 관리 로직: 다중 FOD 클러스터링과 우선순위 정렬 알고리즘",
+      "차량 통신 변환: ROS2 토픽 ↔ CAN 메시지 변환, 쿼터니언→Yaw 변환",
       "HILS 시뮬레이션: vcan 기반 가상 CAN 환경 구축, 시나리오 검증",
       "HMI 통합: Qt5 UI 버그 수정, 토픽 데이터 타입 동기화",
       "경로 생성, CAN 변환, HILS와 HMI 연동을 실제 운영 시나리오에서 통합",
@@ -98,7 +98,6 @@ export interface Education {
   degree: string
   major: string
   period: string
-  gpa?: string
   notes?: string[]
 }
 
@@ -109,13 +108,12 @@ export const education: Education[] = [
     degree: "학사",
     major: "전기전자공학부",
     period: "2019.03 - 2025.08",
-    gpa: "3.38 / 4.5",
   },
   {
     id: 2,
     school: "삼성청년SW·AI아카데미 (SSAFY)",
     degree: "14기 수료",
-    major: "임베디드/모빌리티 트랙",
+    major: "임베디드 트랙",
     period: "2025.07 - 2026.06",
     notes: ["Python, 알고리즘, 임베디드, AI, 웹 풀스택"],
   },
@@ -160,6 +158,7 @@ export interface ProjectMedia {
   caption?: string
   poster?: string
   label?: string
+  fit?: "cover" | "contain"
 }
 
 export interface ProjectSection {
@@ -216,6 +215,7 @@ export type ProjectCardData = Pick<
   | "github"
   | "metrics"
   | "status"
+  | "heroMedia"
 >
 
 export const projects: Project[] = [
@@ -228,32 +228,34 @@ export const projects: Project[] = [
     period: "2024.09 - 2024.12",
     organization: "Skyautonet",
     description:
-      "SkyAutonet 인턴십에서 진행한 활주로/도로 이물질(FOD) 탐지·제거 자율 로봇 프로젝트. FOD 운영 로직(FOD Manager·청소 상태 발행)과 ROS2→차량 CAN 변환, vcan 기반 HILS 검증 환경을 담당했습니다.",
+      "SkyAutonet 인턴십에서 진행한 활주로/도로 이물질(FOD) 탐지·제거 자율 로봇 프로젝트. FOD 객체 관리·청소 상태 발행과 ROS2→차량 통신 변환, vcan 기반 HILS 검증 환경을 담당했습니다.",
     highlights: [
-      "감지된 FOD 객체를 ego pose 기준 map pose로 변환, Lanelet2 current/next lane 검증 + 2m 클러스터링으로 유효 FOD 목록 관리",
-      "AUTO_CLEAN 청소 장비 제어 + cleaning state 발행, 다중 FOD 우선순위(거리·반대방향) 정렬 로직 설계",
+      "감지된 FOD 객체를 차량 기준 좌표에서 지도 좌표로 변환하고, Lanelet2 차선 검증과 거리 기준 클러스터링으로 유효 객체 목록 관리",
+      "자동 청소 장비 제어와 청소 상태 발행, 다중 FOD 우선순위(거리·진행 방향) 정렬 로직 설계",
       "FODRo HILS: vcan으로 actuator·상태 CAN 재현해 실차 없이 반복 검증",
-      "CAN Converter: yaw 0~360° 정규화 · local→WGS84 역투영 · CAN ID별 byte packing 구현·검증",
-      "CAN Converter·byte packing·HILS 검증 — 차량/진단 통신(CAN, CAN FD) 직무와 직결",
+      "차량 통신 변환: yaw 범위 정규화 · local→WGS84 좌표 변환 · 통신 프레임 변환 구현·검증",
+      "차량 통신 변환·HILS 검증 — 차량/진단 통신(CAN, CAN FD) 직무와 직결",
     ],
-    role: ["FOD Manager", "CAN Converter", "HILS"],
+    role: ["FOD 관리 로직", "차량 통신 변환", "HILS"],
     techStack: ["C++", "ROS2", "Autoware", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
     category: "자율주행 / 로봇",
-    metrics: ["vcan HILS", "CAN byte packing", "다중 FOD 우선순위"],
+    metrics: ["vcan HILS", "차량 통신 변환", "다중 FOD 우선순위"],
     status: "completed",
     troubleshooting: [
-      "Yaw·좌표 정규화: HILS 검증 중 변환한 yaw·좌표가 차량 CAN 프로토콜과 어긋남(yaw −180~180° vs CAN 0~360°, local pose(map) vs GNSS WGS84) → 음수 yaw에 360°를 더해 정규화하고 map_projector로 WGS84 역투영, offset/factor로 raw value 생성해 EKF localization 연결을 HILS에서 반복 검증",
-      "Proxy(HMI) route 전달 QoS: route를 proxy server로 HMI에 전달할 때 늦게 구독한 노드가 마지막 route를 받지 못함 → transient_local QoS(latched)로 전환하고 route 미수신 상태를 별도 분기로 처리",
-      "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 포즈·차선 기준이 흔들림 → 감지 객체를 ego→map pose로 변환한 뒤 lanelet orientation·current/next lane 기준으로 2m 클러스터링 + 우선순위(거리·반대방향) 정렬",
+      "Yaw·좌표 정규화: HILS 검증 중 변환한 yaw·좌표가 차량 통신 규격과 어긋남(yaw −180~180° vs 0~360°, 지도 좌표 vs GNSS WGS84) → yaw 범위를 정규화하고 WGS84로 역투영한 뒤 통신 규격에 맞게 스케일링해 HILS에서 반복 검증",
+      "HMI 경로 전달 QoS: 경로를 HMI 연동 계층으로 전달할 때 늦게 구독한 노드가 마지막 경로를 받지 못함 → transient_local QoS(latched)로 전환하고 경로 미수신 상태를 별도 분기로 처리",
+      "다중 FOD 처리: 여러 FOD를 동시에 다룰 때 위치·차선 기준이 흔들림 → 감지 객체를 지도 좌표로 변환한 뒤 차선 방향과 주행 구간을 검증하고, 거리 기준 클러스터링과 우선순위 정렬 적용",
     ],
-    heroMedia: { type: "image", src: "/projects/fodro/fod-clean-rviz.png", alt: "FODRo FOD 청소 경로 (RViz)" },
+    heroMedia: {
+      type: "image",
+      src: "/projects/fodro/fod-clean-rviz.png",
+      alt: "FODRo FOD 청소 경로 (RViz)",
+      fit: "contain",
+    },
     media: [
       { type: "image", src: "/projects/fodro/yaw-output.png", alt: "Yaw 0~360 정규화 출력", caption: "쿼터니언→Yaw rad→deg + 음수 +360°로 0~360° 정규화 후 정상 출력" },
-      { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "map_projector transient_local 에러", caption: "Invalid map projector type — QoS transient_local 미설정 시 노드 종료" },
-      { type: "image", src: "/projects/fodro/can-frame-def.png", alt: "CAN 프레임 정의", caption: "위치·방향 데이터를 차량 CAN 프레임에 맞게 변환한 정의" },
-      { type: "image", src: "/projects/fodro/can-send-dump.png", alt: "CAN 송신 덤프", caption: "hil_actuator CAN 송신 + candump 확인" },
-      { type: "image", src: "/projects/fodro/fod-db-sort-code.png", alt: "다중 FOD DB 정렬 코드", caption: "FodDB(): 반대방향 pose 우선 + 거리순 정렬" },
-      { type: "image", src: "/projects/fodro/reverse-mode-rviz.png", alt: "REVERSE 모드 rviz", caption: "FOD 후진(REVERSE) 모드 — R gear, 후진 경로" },
+      { type: "image", src: "/projects/fodro/transient-local-error.png", alt: "좌표 변환 노드 실행 로그", caption: "좌표 변환 설정 오류를 실행 로그에서 확인" },
+      { type: "image", src: "/projects/fodro/can-send-dump.png", alt: "CAN 송신 검증 로그", caption: "가상 CAN 송신 후 candump로 프레임 확인" },
       { type: "image", src: "/projects/fodro/fod-clean-rviz.png", alt: "FOD 청소 경로 rviz", caption: "FOD 청소 경로 생성·주행" },
     ],
   },
@@ -265,32 +267,36 @@ export const projects: Project[] = [
     period: "2024.09 - 2024.12",
     organization: "Skyautonet",
     description:
-      "SkyAutonet 인턴십에서 진행한 Autoware 기반 Level 4 자율주행 플랫폼 프로젝트. Lanelet2 기반 경로 생성·리루팅과 외부 차선변경 연동(Planning Manager), HILS actuator·HMI 연동을 담당했습니다.",
+      "SkyAutonet 인턴십에서 진행한 Autoware 기반 Level 4 자율주행 플랫폼 프로젝트. Lanelet2 기반 경로 생성·리루팅과 외부 차선변경 요청 연동, HILS actuator·HMI 연동을 담당했습니다.",
     highlights: [
       "Lanelet2 기반 target lanelet 탐색 + distance-limited route 생성 + 잔여거리 기반 reroute 구현",
-      "외부(HMI) 차선변경 service 호출 후 route reset, DrivingStatus 구독·flag 초기화로 변경 차선 기준 경로 재생성",
-      "Lv4 HILS: OperationMode·DrivingStatus 기반 control enable 분기, actuator/state CAN 매핑",
-      "상태 CAN 매핑·HILS 반복 검증 — 임베디드 통신·검증 경험",
+      "외부 HMI 차선변경 요청을 반영해 경로 상태를 초기화하고 변경 차선 기준으로 경로 재생성",
+      "Lv4 HILS: 운행 모드·주행 상태 기반 제어 활성화 분기와 차량 상태 통신 연동",
+      "차량 상태 통신 연동·HILS 반복 검증 — 임베디드 통신·검증 경험",
     ],
-    role: ["Planning Manager", "HILS", "HMI 연동"],
+    role: ["경로 계획·재생성", "HILS", "HMI 연동"],
     techStack: ["C++", "ROS2", "Autoware", "Lanelet2", "CAN (SocketCAN)", "vcan (HILS)", "Qt5"],
     category: "자율주행 / 로봇",
-    metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "상태 CAN 매핑"],
+    metrics: ["실차 없이 반복 검증", "Lanelet2 리루팅", "차량 상태 통신"],
     status: "completed",
     troubleshooting: [
-      "Lane-change Reroute: 외부(HMI) 차선변경 후 rerouting이 이전 차선 기준으로 생성돼 차량이 바뀐 차선을 따라가지 못함 → DrivingStatus(LANE_CHANGE·LEFT/RIGHT) 구독 + 방향별 lane-change service 호출 + AUTONOMOUS 복귀 시 flag 초기화 + route reset으로 변경 차선 기준 경로 재생성",
+      "차선변경 후 경로 재생성: 외부 HMI 요청 뒤 경로가 이전 차선 기준으로 생성돼 차량이 바뀐 차선을 따라가지 못함 → 차선변경 상태와 방향을 구독하고 요청 방향별 처리를 적용한 뒤, 자율주행 복귀 시 상태와 경로를 초기화해 변경 차선 기준으로 재생성",
       "토픽·메시지 타입 동기화: planning·UI·HILS 파트가 각자 개발해 토픽명·메시지 타입이 어긋나 통합이 깨짐 → 토픽명 표준화 + 메시지 타입 동기화로 파트별 독립 개발과 통합 테스트가 가능하도록 정리",
-      "HILS actuator·control enable: 실차 없이 actuator를 재현하고 OperationMode·DrivingStatus 기반으로 control enable을 분기 → vcan HILS로 actuator/state CAN을 매핑해 반복 검증",
+      "HILS actuator·제어 활성화: 실차 없이 actuator를 재현하고 운행 모드·주행 상태에 따라 제어 활성화를 분기 → vcan HILS로 차량 상태 통신을 연동해 반복 검증",
     ],
-    heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "SkyAutonet Lv4 운영자 HMI" },
+    heroMedia: {
+      type: "image",
+      src: "/projects/skyautonet-lv4/hmi-redacted.png",
+      alt: "Level 4+ 자율주행 운영자 HMI",
+      fit: "contain",
+    },
     media: [
-      { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
+      { type: "image", src: "/projects/skyautonet-lv4/hmi-redacted.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
+      { type: "image", src: "/projects/skyautonet-lv4/cover.png", alt: "운영 HMI와 자율주행 경로 시각화", caption: "운영 HMI 상태 표시와 자율주행 경로·LiDAR 시각화" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-before.png", alt: "Lanelet marker 겹침(전)", caption: "회색 roads marker가 다른 marker를 가림 (수정 전)" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-after.png", alt: "Lanelet marker 겹침(후)", caption: "marker z축 조정으로 겹침 해소 (수정 후)" },
       { type: "image", src: "/projects/skyautonet-lv4/lane-change-rviz.png", alt: "차선변경 경로 rviz", caption: "external lane change 후 변경 차선 기준 경로 생성" },
-      { type: "image", src: "/projects/skyautonet-lv4/lane-change-service.png", alt: "lane change service 코드", caption: "external_request_lane_change service 연동 코드" },
       { type: "image", src: "/projects/skyautonet-lv4/getendoflane-footprint.png", alt: "GetEndOfLaneGoal footprint", caption: "footprint 축소로 차선 내 158m route 정상 생성" },
-      { type: "image", src: "/projects/skyautonet-lv4/hils-state-can-code.png", alt: "HILS state CAN 코드", caption: "자율주행 모드 분기와 차량 상태 CAN 매핑" },
     ],
   },
 
@@ -327,7 +333,12 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["ROS2/Nav2 runtime", "LLM drive bridge", "vision alignment"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/scv/cover.png", alt: "SCV - Smart Companion Vehicle" },
+    heroMedia: {
+      type: "image",
+      src: "/projects/scv/cover.png",
+      alt: "SCV - Smart Companion Vehicle 전체 모습",
+      fit: "contain",
+    },
     media: [
       {
         type: "video",
@@ -462,10 +473,13 @@ export const projects: Project[] = [
       "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
       "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
     ],
-    heroMedia: { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "TeamKAI 콘 트랙 자율주행 실주행" },
+    heroMedia: { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차 실주행" },
     media: [
-      { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 주행", caption: "주황 콘 트랙 + RC카 실주행" },
-      { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
+      { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차", caption: "콘 트랙에서 주행 중인 TeamKAI 자율주행 자작차" },
+      { type: "image", src: "/projects/teamkai/lidar-rviz.png", alt: "TeamKAI LiDAR 콘 인식 RViz", caption: "Ouster LiDAR 포인트클라우드 전처리와 콘 후보 검출 결과" },
+      { type: "image", src: "/projects/teamkai/lidar-pointcloud.png", alt: "TeamKAI LiDAR 포인트클라우드", caption: "콘 트랙에서 취득한 LiDAR 포인트클라우드" },
+      { type: "image", src: "/projects/teamkai/cone-detection.jpg", alt: "TeamKAI 카메라 콘 검출", caption: "카메라 영상에서 파란색·노란색 콘을 검출한 결과" },
+      { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "TeamKAI 콘 트랙 카메라뷰", caption: "TeamKAI 차량 카메라에서 본 콘 트랙" },
     ],
   },
   {
@@ -504,10 +518,10 @@ export const projects: Project[] = [
   {
     id: 4,
     slug: "pathfinders",
-    title: "TeamPathfinders - Xycar 자율주행",
-    subtitle: "1/10 스케일 자율주행",
+    title: "국민대학교 Xycar - Team Pathfinders",
+    subtitle: "1/10 스케일 RC카 자율주행 교육 프로젝트",
     period: "2024.07 - 2024.08",
-    organization: "Team Pathfinders",
+    organization: "국민대학교 · Team Pathfinders",
     description:
       "ROS 기반 Xycar(1/10 스케일 RC카) 플랫폼에서 자율 주차, 신호 감지 자율 주행, 실시간 차선 검출 구현.",
     highlights: [
@@ -521,8 +535,10 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamPathfinders",
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인" },
+    heroMedia: { type: "image", src: "/projects/pathfinders/xycar-course.jpg", alt: "국민대학교 Xycar 자율주행 코스" },
     media: [
+      { type: "image", src: "/projects/pathfinders/xycar-course.jpg", alt: "국민대학교 Xycar 자율주행 코스", caption: "국민대학교 Xycar 실차 교육용 콘 코스" },
+      { type: "image", src: "/projects/pathfinders/xycar-course-pov.jpg", alt: "Xycar 콘 코스 주행 시점", caption: "Team Pathfinders Xycar의 콘 코스 주행 시점" },
       { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인", caption: "원본 + 엣지 + 라인 마스크" },
       { type: "image", src: "/projects/pathfinders/bev.jpg", alt: "BEV 차선 추정", caption: "Bird's-eye View 차선 포인트 추정" },
       { type: "image", src: "/projects/pathfinders/lane.gif", alt: "차선 추적", caption: "실시간 차선 검출" },
@@ -639,10 +655,10 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/smart-menu-board-scanner",
     metrics: ["101종 음식 분류", "한/영 OCR"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "메뉴 스캐너 파이프라인" },
+    heroMedia: { type: "image", src: "/projects/menu-scanner/ocr.png", alt: "Smart Menu Board Scanner OCR 결과" },
     media: [
-      { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "전체 파이프라인", caption: "Model1(음식 분류) + Model2(메뉴판 OCR → 번역)" },
       { type: "image", src: "/projects/menu-scanner/ocr.png", alt: "메뉴판 OCR", caption: "EasyOCR 글자영역 검출 + 인식" },
+      { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "전체 파이프라인", caption: "Model1(음식 분류) + Model2(메뉴판 OCR → 번역)" },
       { type: "image", src: "/projects/menu-scanner/translate.png", alt: "번역 결과", caption: "생선구이 → Roasted fish" },
     ],
   },
