@@ -33,7 +33,6 @@ export function SkillsSection({ skills }: { skills: Skills }) {
           variants={fadeInUp}
         >
           <SectionHeading
-            index="01"
             eyebrow="Skills"
             title="도구보다 연결 방식에 집중합니다."
             description="자율주행과 로보틱스 시스템을 구성하는 인지, 통신, 제어, 운영 기술을 프로젝트 안에서 함께 사용했습니다."

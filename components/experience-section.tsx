@@ -21,7 +21,6 @@ export function ExperienceSection({
           variants={fadeInUp}
         >
           <SectionHeading
-            index="02"
             eyebrow="Experience"
             title="실제 차량 시스템의 경계를 다뤘습니다."
             description="경로 생성부터 CAN 변환, HILS와 HMI 연동까지 인터페이스 사이의 문제를 분리하고 반복 검증했습니다."

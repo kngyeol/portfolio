@@ -45,7 +45,6 @@ export function ContactSection({ profile }: { profile: Profile }) {
         >
           <motion.div variants={fadeInUp}>
             <SectionHeading
-              index="05"
               eyebrow="Contact"
               title="다음 시스템을 함께 만들 준비가 되어 있습니다."
               description="프로젝트 협업이나 채용 관련 문의는 아래 채널로 연락해 주세요."

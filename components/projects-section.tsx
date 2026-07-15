@@ -63,7 +63,6 @@ export function ProjectsSection({
           variants={fadeInUp}
         >
           <SectionHeading
-            index="03"
             eyebrow="Projects"
             title="문제를 시스템 단위로 해결했습니다."
             description={`총 ${projects.length}개 프로젝트에서 인지, 경로, 통신, 제어, 검증을 하나의 실행 흐름으로 연결했습니다.`}

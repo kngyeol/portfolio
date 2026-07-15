@@ -25,7 +25,6 @@ export function EducationSection({
           variants={fadeInUp}
         >
           <SectionHeading
-            index="04"
             eyebrow="Education & Awards"
             title="기술의 기반과 성장 기록입니다."
             description="전기전자공학 전공과 임베디드 교육을 바탕으로 로보틱스 소프트웨어 역량을 확장했습니다."
