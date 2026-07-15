@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import Link from "next/link"
 import {
   Bot,
@@ -18,7 +18,7 @@ import {
   ChevronUp,
 } from "lucide-react"
 import type { Category, ProjectCardData } from "@/lib/portfolio-data"
-import { fadeInUp, scaleIn } from "@/lib/animations"
+import { fadeInUp } from "@/lib/animations"
 import { RichText } from "./rich-text"
 import { ProjectMediaPreview } from "./project-media"
 import { SectionHeading } from "./section-heading"
@@ -90,7 +90,7 @@ export function ProjectsSection({
                   setActiveCategory(cat.name)
                   setShowAll(false)
                 }}
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all ${
+                className={`inline-flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-[background-color,border-color,color,box-shadow] duration-200 ${
                   activeCategory === cat.name
                     ? "bg-foreground text-background shadow-[0_10px_24px_rgba(23,24,22,0.14)]"
                     : "border border-border bg-card text-secondary-foreground hover:border-primary/35 hover:text-primary"
@@ -107,12 +107,16 @@ export function ProjectsSection({
         </motion.div>
 
         {/* Project cards */}
-        <motion.div layout className="mt-10 grid auto-rows-fr gap-5 sm:grid-cols-2">
-          <AnimatePresence mode="popLayout">
-            {visibleProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </AnimatePresence>
+        <motion.div
+          key={`${activeCategory}-${showAll}`}
+          initial={{ opacity: 0.45 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.16, ease: "easeOut" }}
+          className="mt-10 grid auto-rows-fr gap-5 sm:grid-cols-2"
+        >
+          {visibleProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </motion.div>
 
         {hiddenCount > 0 && (
@@ -148,12 +152,7 @@ function ProjectCard({ project }: { project: ProjectCardData }) {
     : [...Object.values(project.techStack).flat()]
 
   return (
-    <motion.article
-      layout
-      variants={scaleIn}
-      initial="hidden"
-      animate="visible"
-      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+    <article
       className="surface-shadow group relative flex h-full min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/35"
     >
       {/* Full-card click target (kept as overlay to avoid nested anchors) */}
@@ -275,6 +274,6 @@ function ProjectCard({ project }: { project: ProjectCardData }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   )
 }

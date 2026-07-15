@@ -38,14 +38,9 @@ export function Navigation() {
         <a
           href="#about"
           aria-label="김동열 포트폴리오 홈"
-          className="group min-w-0"
+          className="group min-w-0 text-base font-bold tracking-[-0.03em] text-foreground transition-colors hover:text-primary"
         >
-          <span className="block text-base font-bold leading-none tracking-[-0.03em] text-foreground transition-colors group-hover:text-primary">
-            김동열
-          </span>
-          <span className="mt-1 block text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            Portfolio
-          </span>
+          Portfolio
         </a>
 
         {/* Desktop nav */}

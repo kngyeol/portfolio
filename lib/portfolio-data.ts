@@ -285,6 +285,7 @@ export const projects: Project[] = [
     heroMedia: { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "SkyAutonet Lv4 운영자 HMI" },
     media: [
       { type: "image", src: "/projects/skyautonet-lv4/hmi.png", alt: "HMI 운영자 화면", caption: "Qt5 HMI — AUTONOMOUS 상태·센서·dummy generate·START/STOP" },
+      { type: "image", src: "/projects/skyautonet-lv4/cover.png", alt: "운영 HMI와 자율주행 경로 시각화", caption: "운영 HMI 상태 표시와 자율주행 경로·LiDAR 시각화" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-before.png", alt: "Lanelet marker 겹침(전)", caption: "회색 roads marker가 다른 marker를 가림 (수정 전)" },
       { type: "image", src: "/projects/skyautonet-lv4/marker-overlap-after.png", alt: "Lanelet marker 겹침(후)", caption: "marker z축 조정으로 겹침 해소 (수정 후)" },
       { type: "image", src: "/projects/skyautonet-lv4/lane-change-rviz.png", alt: "차선변경 경로 rviz", caption: "external lane change 후 변경 차선 기준 경로 생성" },
@@ -470,7 +471,10 @@ export const projects: Project[] = [
     heroMedia: { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차 실주행" },
     media: [
       { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차", caption: "콘 트랙에서 주행 중인 TeamKAI 자율주행 자작차" },
-      { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
+      { type: "image", src: "/projects/teamkai/lidar-rviz.png", alt: "TeamKAI LiDAR 콘 인식 RViz", caption: "Ouster LiDAR 포인트클라우드 전처리와 콘 후보 검출 결과" },
+      { type: "image", src: "/projects/teamkai/lidar-pointcloud.png", alt: "TeamKAI LiDAR 포인트클라우드", caption: "콘 트랙에서 취득한 LiDAR 포인트클라우드" },
+      { type: "image", src: "/projects/teamkai/cone-detection.jpg", alt: "TeamKAI 카메라 콘 검출", caption: "카메라 영상에서 파란색·노란색 콘을 검출한 결과" },
+      { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "TeamKAI 콘 트랙 카메라뷰", caption: "TeamKAI 차량 카메라에서 본 콘 트랙" },
     ],
   },
   {
@@ -509,10 +513,10 @@ export const projects: Project[] = [
   {
     id: 4,
     slug: "pathfinders",
-    title: "TeamPathfinders - Xycar 자율주행",
-    subtitle: "1/10 스케일 자율주행",
+    title: "국민대학교 Xycar - Team Pathfinders",
+    subtitle: "1/10 스케일 RC카 자율주행 교육 프로젝트",
     period: "2024.07 - 2024.08",
-    organization: "Team Pathfinders",
+    organization: "국민대학교 · Team Pathfinders",
     description:
       "ROS 기반 Xycar(1/10 스케일 RC카) 플랫폼에서 자율 주차, 신호 감지 자율 주행, 실시간 차선 검출 구현.",
     highlights: [
@@ -526,8 +530,10 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     github: "https://github.com/kngyeol/TeamPathfinders",
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인" },
+    heroMedia: { type: "image", src: "/projects/pathfinders/xycar-course.jpg", alt: "국민대학교 Xycar 자율주행 코스" },
     media: [
+      { type: "image", src: "/projects/pathfinders/xycar-course.jpg", alt: "국민대학교 Xycar 자율주행 코스", caption: "국민대학교 Xycar 실차 교육용 콘 코스" },
+      { type: "image", src: "/projects/pathfinders/xycar-course-pov.jpg", alt: "Xycar 콘 코스 주행 시점", caption: "Team Pathfinders Xycar의 콘 코스 주행 시점" },
       { type: "image", src: "/projects/pathfinders/lane-pipeline.jpg", alt: "차선 검출 파이프라인", caption: "원본 + 엣지 + 라인 마스크" },
       { type: "image", src: "/projects/pathfinders/bev.jpg", alt: "BEV 차선 추정", caption: "Bird's-eye View 차선 포인트 추정" },
       { type: "image", src: "/projects/pathfinders/lane.gif", alt: "차선 추적", caption: "실시간 차선 검출" },
