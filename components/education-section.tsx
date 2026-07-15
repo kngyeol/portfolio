@@ -63,9 +63,6 @@ export function EducationSection({
                     {edu.period}
                   </span>
                 </div>
-                {edu.gpa && (
-                  <p className="mt-2 text-sm text-primary">GPA: {edu.gpa}</p>
-                )}
                 {edu.notes && (
                   <ul className="mt-2 space-y-1">
                     {edu.notes.map((note, idx) => (

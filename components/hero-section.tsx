@@ -46,22 +46,27 @@ export function HeroSection({ profile }: { profile: Profile }) {
               {profile.role}
             </span>
             <span className="text-xs font-medium text-muted-foreground">
-              {profile.name} · {profile.nameEn}
+              {profile.nameEn}
             </span>
           </motion.div>
 
           <motion.h1
             variants={fadeInUp}
-            className="text-safe-wrap mt-7 max-w-3xl text-[2.65rem] font-bold leading-[1.08] tracking-[-0.055em] text-foreground sm:text-6xl xl:text-[4.5rem]"
+            className="text-safe-wrap mt-7 max-w-3xl text-[4.6rem] font-bold leading-[0.94] tracking-[-0.065em] text-foreground sm:text-[6.25rem] lg:text-[5.5rem] xl:text-[7rem]"
           >
-            인지부터 제어까지,
-            <br />
-            <span className="text-primary">한 흐름으로.</span>
+            {profile.name}
           </motion.h1>
 
           <motion.p
             variants={fadeInUp}
-            className="text-safe-wrap mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg"
+            className="text-safe-wrap mt-5 text-2xl font-semibold leading-tight tracking-[-0.04em] text-foreground sm:text-3xl lg:text-[1.7rem] xl:text-3xl"
+          >
+            인지부터 제어까지, <span className="text-primary">한 흐름으로.</span>
+          </motion.p>
+
+          <motion.p
+            variants={fadeInUp}
+            className="text-safe-wrap mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
           >
             {profile.summary}
           </motion.p>

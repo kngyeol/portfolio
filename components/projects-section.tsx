@@ -14,6 +14,8 @@ import {
   Building2,
   Users,
   Github,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react"
 import type { Category, ProjectCardData } from "@/lib/portfolio-data"
 import { fadeInUp, scaleIn } from "@/lib/animations"
@@ -37,11 +39,19 @@ export function ProjectsSection({
   categories: readonly Category[]
 }) {
   const [activeCategory, setActiveCategory] = useState("전체")
+  const [showAll, setShowAll] = useState(false)
 
   const filtered =
     activeCategory === "전체"
       ? projects
       : projects.filter((p) => p.category === activeCategory)
+  const sorted = [...filtered].sort(
+    (a, b) => Number(Boolean(b.heroMedia)) - Number(Boolean(a.heroMedia)),
+  )
+  const hiddenCount = sorted.filter((project) => !project.heroMedia).length
+  const visibleProjects = showAll
+    ? sorted
+    : sorted.filter((project) => project.heroMedia)
 
   return (
     <section id="projects" className="px-5 py-24 sm:px-6 lg:py-32">
@@ -76,7 +86,10 @@ export function ProjectsSection({
             return (
               <button
                 key={cat.name}
-                onClick={() => setActiveCategory(cat.name)}
+                onClick={() => {
+                  setActiveCategory(cat.name)
+                  setShowAll(false)
+                }}
                 className={`inline-flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all ${
                   activeCategory === cat.name
                     ? "bg-foreground text-background shadow-[0_10px_24px_rgba(23,24,22,0.14)]"
@@ -96,11 +109,34 @@ export function ProjectsSection({
         {/* Project cards */}
         <motion.div layout className="mt-10 grid auto-rows-fr gap-5 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+            {visibleProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {hiddenCount > 0 && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll((current) => !current)}
+              className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-xs font-semibold tracking-[0.12em] text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+              aria-expanded={showAll}
+            >
+              {showAll ? (
+                <>
+                  LESS PROJECTS
+                  <ChevronUp size={15} />
+                </>
+              ) : (
+                <>
+                  MORE PROJECTS · {hiddenCount}
+                  <ChevronDown size={15} />
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

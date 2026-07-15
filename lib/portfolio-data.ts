@@ -12,7 +12,7 @@ export const profile = {
   title: "Embedded · Robotics · Autonomous Driving Engineer",
   tagline: "인지부터 제어까지, 한 흐름으로.",
   summary:
-    "ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS 검증을 경험했습니다. LLM 명령 브리지부터 센서, 제어, 운영 도구까지 직접 만들고 실차와 실장비로 검증합니다.",
+    "ROS2와 C++로 센서, 인지, CAN, 액추에이터를 연결하고 HILS와 SILS로 검증합니다.",
   contact: {
     email: "henry3447@naver.com",
     github: "https://github.com/kngyeol",
@@ -98,7 +98,6 @@ export interface Education {
   degree: string
   major: string
   period: string
-  gpa?: string
   notes?: string[]
 }
 
@@ -109,13 +108,12 @@ export const education: Education[] = [
     degree: "학사",
     major: "전기전자공학부",
     period: "2019.03 - 2025.08",
-    gpa: "3.38 / 4.5",
   },
   {
     id: 2,
     school: "삼성청년SW·AI아카데미 (SSAFY)",
     degree: "14기 수료",
-    major: "임베디드/모빌리티 트랙",
+    major: "임베디드 트랙",
     period: "2025.07 - 2026.06",
     notes: ["Python, 알고리즘, 임베디드, AI, 웹 풀스택"],
   },
@@ -160,6 +158,7 @@ export interface ProjectMedia {
   caption?: string
   poster?: string
   label?: string
+  fit?: "cover" | "contain"
 }
 
 export interface ProjectSection {
@@ -328,7 +327,12 @@ export const projects: Project[] = [
     category: "자율주행 / 로봇",
     metrics: ["ROS2/Nav2 runtime", "LLM drive bridge", "vision alignment"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/scv/cover.png", alt: "SCV - Smart Companion Vehicle" },
+    heroMedia: {
+      type: "image",
+      src: "/projects/scv/cover.png",
+      alt: "SCV - Smart Companion Vehicle 전체 모습",
+      fit: "contain",
+    },
     media: [
       {
         type: "video",
@@ -463,9 +467,9 @@ export const projects: Project[] = [
       "트랙 좌/우 구분: LiDAR만으로는 좌/우 구분이 어렵고 차량 heading이 바뀌면 좌우가 반전됨(경로 생성에 필수) → 색상 기반 카메라 센서퓨전을 고안(실적용은 못함), 대안으로 현재 위치에서 가까운 좌/우 콘을 기억하고 인접 콘을 이어가며 좌/우 배열을 분리 처리",
       "2랩 주행 전략: 대회 룰상 2바퀴 주행 → 1랩에서 트랙맵을 작성하고 2랩에서 맵 기반으로 빠르게 주행하는 SLAM 전략 수립(완전 구현은 못함)",
     ],
-    heroMedia: { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "TeamKAI 콘 트랙 자율주행 실주행" },
+    heroMedia: { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차 실주행" },
     media: [
-      { type: "image", src: "/projects/teamkai/cone-track.jpg", alt: "콘 트랙 주행", caption: "주황 콘 트랙 + RC카 실주행" },
+      { type: "image", src: "/projects/teamkai/cover.png", alt: "TeamKAI 자율주행 자작차", caption: "콘 트랙에서 주행 중인 TeamKAI 자율주행 자작차" },
       { type: "image", src: "/projects/teamkai/cone-pov.jpg", alt: "콘 검출 POV", caption: "지면 시점 카메라뷰 — 콘 + 트랙 라인" },
     ],
   },
@@ -640,10 +644,10 @@ export const projects: Project[] = [
     github: "https://github.com/kngyeol/smart-menu-board-scanner",
     metrics: ["101종 음식 분류", "한/영 OCR"],
     status: "completed",
-    heroMedia: { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "메뉴 스캐너 파이프라인" },
+    heroMedia: { type: "image", src: "/projects/menu-scanner/ocr.png", alt: "Smart Menu Board Scanner OCR 결과" },
     media: [
-      { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "전체 파이프라인", caption: "Model1(음식 분류) + Model2(메뉴판 OCR → 번역)" },
       { type: "image", src: "/projects/menu-scanner/ocr.png", alt: "메뉴판 OCR", caption: "EasyOCR 글자영역 검출 + 인식" },
+      { type: "image", src: "/projects/menu-scanner/pipeline.png", alt: "전체 파이프라인", caption: "Model1(음식 분류) + Model2(메뉴판 OCR → 번역)" },
       { type: "image", src: "/projects/menu-scanner/translate.png", alt: "번역 결과", caption: "생선구이 → Roasted fish" },
     ],
   },
