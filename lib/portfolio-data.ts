@@ -584,7 +584,7 @@ export const projects: Project[] = [
     period: "2025.10",
     organization: "SSAFY",
     description:
-      "한국어 이미지 기반 4지선다 VQA 챌린지. 5가지 실험 전략으로 VLM 파인튜닝 및 앙상블 라우팅 구현.",
+      "한국어 이미지 기반 4지선다 VQA 챌린지. VLM 미세조정, API 추론, 모델 라우팅과 번역 보조 경로를 탐색.",
     highlights: [
       "Qwen2.5-VL-3B LoRA Fine-tuning (4-bit 양자화)",
       "BLIP-2 LoRA (Answer-only loss, Early Stopping)",
@@ -603,7 +603,8 @@ export const projects: Project[] = [
       "OpenAI API",
     ],
     category: "AI / 컴퓨터비전",
-    metrics: ["5개 실험 전략", "다국어 지원"],
+    github: "https://github.com/kngyeol/Project-Korean-VQA",
+    metrics: ["5개 실험 방향", "4지선다 출력"],
     status: "completed",
   },
   {
@@ -717,16 +718,17 @@ export const projects: Project[] = [
     period: "2025.08 - 2025.10",
     organization: "SSAFY",
     description:
-      "Firebase Firestore에 저장된 차량 telematics 데이터를 웹에서 실시간 시각화. z-score 기반 이상치 탐지.",
+      "Firebase Firestore의 가공 차량 telematics 데이터를 웹에서 실시간 구독하고 필터와 차트로 시각화한 IVI 프로토타입.",
     highlights: [
       "Firebase onSnapshot() 실시간 구독",
       "기간/레벨/유저별 다중 필터링",
       "Chart.js 기반 속도/엔진온도/가속도 시계열 차트",
-      "급가속, 엔진 온도 급등 등 이상패턴 식별 (z-score)",
+      "로그 레벨 색상 구분과 날씨·내비게이션·운전 코칭 UI",
     ],
     role: ["Frontend"],
     techStack: ["Vue 3", "Firebase Firestore", "Chart.js", "Vite"],
     category: "웹 / 풀스택",
+    github: "https://github.com/kngyeol/Project-IVI-Dashboard",
     status: "completed",
   },
 
