@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import {
   Bot,
   BrainCircuit,
+  Code2,
   Cpu,
   Server,
   Monitor,
@@ -14,6 +15,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations"
 import { SectionHeading } from "./section-heading"
 
 const categoryIcons: Record<string, React.ReactNode> = {
+  언어: <Code2 size={18} />,
   "자율주행/로봇": <Bot size={18} />,
   "딥러닝/AI": <BrainCircuit size={18} />,
   "FPGA/임베디드": <Cpu size={18} />,
@@ -33,46 +35,49 @@ export function SkillsSection({ skills }: { skills: Skills }) {
           variants={fadeInUp}
         >
           <SectionHeading
-            eyebrow="Skills"
-            title="도구보다 연결 방식에 집중합니다."
-            description="자율주행과 로보틱스 시스템을 구성하는 인지, 통신, 제어, 운영 기술을 프로젝트 안에서 함께 사용했습니다."
+            eyebrow="03"
+            title="기술"
+            description="프로젝트에서 사용한 기술을 시스템 역할별로 정리했습니다."
           />
         </motion.div>
 
-        <motion.div
+        <motion.ul
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 border-t border-border/90"
         >
           {Object.entries(skills).map(([category, items]) => (
-            <motion.div
+            <motion.li
               key={category}
               variants={fadeInUp}
-              className="group rounded-2xl border border-border/90 bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.035)] transition-all hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_18px_45px_rgba(23,24,22,0.08)] sm:p-6"
+              className="grid gap-4 border-b border-border/90 py-5 sm:grid-cols-[minmax(11rem,0.36fr)_minmax(0,1fr)] sm:items-start sm:gap-8 sm:py-6"
             >
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center text-primary"
+                >
                   {categoryIcons[category]}
-                </div>
+                </span>
                 <h3 className="text-sm font-semibold text-foreground">
                   {category}
                 </h3>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
                 {items.map((skill) => (
-                  <span
+                  <li
                     key={skill}
-                  className="text-anywhere inline-block rounded-lg border border-border/80 bg-secondary/75 px-2.5 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:border-primary/40 hover:bg-primary/8 hover:text-primary"
+                    className="text-anywhere text-sm leading-6 text-secondary-foreground before:mr-2 before:text-primary/45 before:content-['/']"
                   >
                     {skill}
-                  </span>
+                  </li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+            </motion.li>
           ))}
-        </motion.div>
+        </motion.ul>
       </div>
     </section>
   )

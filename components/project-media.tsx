@@ -6,9 +6,9 @@ import type { ProjectMedia } from "@/lib/portfolio-data"
 import { cn } from "@/lib/utils"
 
 export function getMediaTypeLabel(media: ProjectMedia) {
-  if (media.type === "video") return "Video"
-  if (media.type === "document") return media.label ?? "Document"
-  return "Image"
+  if (media.type === "video") return "영상"
+  if (media.type === "document") return media.label ?? "문서"
+  return "이미지"
 }
 
 export function ProjectMediaPreview({
@@ -77,7 +77,7 @@ export function ProjectMediaPreview({
             sizes="(max-width: 640px) 100vw, 50vw"
             priority={priority}
             loading={priority ? "eager" : "lazy"}
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover"
           />
         ) : (
           <video
@@ -85,7 +85,7 @@ export function ProjectMediaPreview({
             muted
             playsInline
             preload="metadata"
-            className="h-full w-full object-cover transition-transform group-hover:scale-105"
+            className="h-full w-full object-cover"
           />
         )}
         <div className="absolute inset-0 flex items-center justify-center bg-background/20">
@@ -128,7 +128,7 @@ export function ProjectMediaPreview({
           ? "bg-white object-contain"
           : variant === "hero"
             ? "object-cover"
-            : "object-cover transition-transform group-hover:scale-105",
+            : "object-cover",
         className,
       )}
     />

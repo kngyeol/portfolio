@@ -25,9 +25,9 @@ export function EducationSection({
           variants={fadeInUp}
         >
           <SectionHeading
-            eyebrow="Education & Awards"
-            title="기술의 기반과 성장 기록입니다."
-            description="전기전자공학 전공과 임베디드 교육을 바탕으로 로보틱스 소프트웨어 역량을 확장했습니다."
+            eyebrow="04"
+            title="학력 및 수상"
+            description="전기전자공학 전공, 임베디드 교육, 수상 및 어학 기록입니다."
           />
         </motion.div>
 
@@ -42,37 +42,39 @@ export function EducationSection({
           >
             <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
               <GraduationCap size={20} className="text-primary" />
-              학력
+              학력 및 교육
             </h3>
 
-            {education.map((edu) => (
-              <motion.div
-                key={edu.id}
-                variants={fadeInUp}
-                className="rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.035)] transition-all hover:border-primary/30 sm:p-6"
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
-                  <div className="min-w-0">
-                    <h4 className="text-safe-wrap font-semibold text-foreground">{edu.school}</h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {edu.major} · {edu.degree}
-                    </p>
+            <div className="border-y border-border">
+              {education.map((edu) => (
+                <motion.div
+                  key={edu.id}
+                  variants={fadeInUp}
+                  className="border-b border-border py-5 last:border-b-0"
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                    <div className="min-w-0">
+                      <h4 className="text-safe-wrap font-semibold text-foreground">{edu.school}</h4>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {edu.major} · {edu.degree}
+                      </p>
+                    </div>
+                    <span className="shrink-0 text-xs tabular-nums text-muted-foreground sm:text-right">
+                      {edu.period}
+                    </span>
                   </div>
-                  <span className="shrink-0 text-xs text-muted-foreground sm:text-right">
-                    {edu.period}
-                  </span>
-                </div>
-                {edu.notes && (
-                  <ul className="mt-2 space-y-1">
-                    {edu.notes.map((note, idx) => (
-                      <li key={idx} className="text-xs text-muted-foreground">
-                        • {note}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
-            ))}
+                  {edu.notes && (
+                    <ul className="mt-2 space-y-1">
+                      {edu.notes.map((note, idx) => (
+                        <li key={idx} className="text-xs text-muted-foreground">
+                          • {note}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Awards & Certificates */}
@@ -89,30 +91,32 @@ export function EducationSection({
               수상
             </h3>
 
-            {awards.map((award) => (
-              <motion.div
-                key={award.id}
-                variants={fadeInUp}
-                className="rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.035)] transition-all hover:border-primary/30 sm:p-6"
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
-                  <div className="min-w-0">
-                    <h4 className="text-safe-wrap font-semibold text-foreground">{award.title}</h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {award.organization}
-                    </p>
-                    {award.description && (
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {award.description}
+            <div className="border-y border-border">
+              {awards.map((award) => (
+                <motion.div
+                  key={award.id}
+                  variants={fadeInUp}
+                  className="border-b border-border py-5 last:border-b-0"
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                    <div className="min-w-0">
+                      <h4 className="text-safe-wrap font-semibold text-foreground">{award.title}</h4>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {award.organization}
                       </p>
-                    )}
+                      {award.description && (
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          {award.description}
+                        </p>
+                      )}
+                    </div>
+                    <span className="shrink-0 text-xs tabular-nums text-muted-foreground sm:text-right">
+                      {award.date}
+                    </span>
                   </div>
-                  <span className="shrink-0 text-xs text-muted-foreground sm:text-right">
-                    {award.date}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
 
             {/* Certificates */}
             <h3 className="mt-6 flex items-center gap-2 text-lg font-semibold text-foreground">
@@ -122,19 +126,19 @@ export function EducationSection({
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap gap-3"
+              className="divide-y divide-border border-y border-border"
             >
               {certificates.map((cert) => (
                 <div
                   key={cert.id}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-[0_8px_24px_rgba(23,24,22,0.035)] transition-all hover:border-primary/30"
+                  className="flex min-h-14 items-center justify-between gap-3 py-3"
                 >
                   <div>
                     <p className="font-medium text-foreground">{cert.name}</p>
                     <p className="text-xs text-muted-foreground">{cert.date}</p>
                   </div>
                   {cert.score && (
-                    <span className="rounded-lg bg-primary/10 px-2.5 py-1 text-sm font-semibold text-primary">
+                    <span className="text-sm font-semibold text-primary">
                       {cert.score}
                     </span>
                   )}
@@ -150,7 +154,7 @@ export function EducationSection({
 
             <motion.div
               variants={fadeInUp}
-              className="rounded-2xl border border-border bg-card p-5 shadow-[0_10px_30px_rgba(23,24,22,0.035)] transition-all hover:border-primary/30 sm:p-6"
+              className="border-y border-border py-5"
             >
               <h4 className="font-semibold text-foreground">KATUSA (카투사)</h4>
               <p className="mt-1 text-sm text-muted-foreground">

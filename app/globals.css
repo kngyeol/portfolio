@@ -10,7 +10,7 @@
   --card-foreground: #171816;
   --popover: #ffffff;
   --popover-foreground: #171816;
-  --primary: #ec5b20;
+  --primary: #b4471a;
   --primary-foreground: #ffffff;
   --secondary: #f1efe9;
   --secondary-foreground: #363832;
@@ -22,8 +22,8 @@
   --destructive-foreground: #fecaca;
   --border: #dedcd5;
   --input: #dedcd5;
-  --ring: #ec5b20;
-  --chart-1: #ec5b20;
+  --ring: #b4471a;
+  --chart-1: #b4471a;
   --chart-2: #f59052;
   --chart-3: #fbbf91;
   --chart-4: #c2410c;
@@ -86,11 +86,22 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 8% 2%, rgb(236 91 32 / 0.055), transparent 26rem),
-      radial-gradient(circle at 92% 24%, rgb(23 24 22 / 0.035), transparent 24rem);
+    background-image: radial-gradient(
+      circle at 8% 2%,
+      rgb(180 71 26 / 0.04),
+      transparent 28rem
+    );
     background-attachment: fixed;
     overflow-wrap: break-word;
+  }
+
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
   }
 
   ::selection {
@@ -102,6 +113,7 @@
   .text-safe-wrap {
     word-break: keep-all;
     overflow-wrap: break-word;
+    text-wrap: pretty;
   }
 
   .text-anywhere {
@@ -109,7 +121,7 @@
   }
 
   .surface-shadow {
-    box-shadow: 0 20px 60px rgb(23 24 22 / 0.07);
+    box-shadow: 0 18px 48px rgb(23 24 22 / 0.055);
   }
 
   .technical-grid {
@@ -123,14 +135,5 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
   }
 }

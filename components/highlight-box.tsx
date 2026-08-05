@@ -15,25 +15,16 @@ interface HighlightBoxProps {
 
 const variantConfig: Record<
   BoxVariant,
-  { icon: React.ReactNode; borderColor: string; bgColor: string; textColor: string }
+  { icon: React.ReactNode }
 > = {
   role: {
     icon: <CheckCircle2 size={18} />,
-    borderColor: "border-amber-500/50",
-    bgColor: "bg-amber-500/5",
-    textColor: "text-amber-500",
   },
   trouble: {
     icon: <AlertTriangle size={18} />,
-    borderColor: "border-red-500/50",
-    bgColor: "bg-red-500/5",
-    textColor: "text-red-500",
   },
   future: {
     icon: <Lightbulb size={18} />,
-    borderColor: "border-emerald-500/50",
-    bgColor: "bg-emerald-500/5",
-    textColor: "text-emerald-500",
   },
 }
 
@@ -46,10 +37,10 @@ export function HighlightBox({ variant, title, items }: HighlightBoxProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className={`rounded-2xl border ${config.borderColor} ${config.bgColor} p-5 sm:p-6`}
+      className="border-y border-border py-5 sm:py-6"
     >
-      <h3 className={`flex items-center gap-2 text-sm font-semibold ${config.textColor}`}>
-        {config.icon}
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        <span className="text-primary">{config.icon}</span>
         {title}
       </h3>
       <ul className="mt-4 space-y-2.5">
@@ -58,7 +49,7 @@ export function HighlightBox({ variant, title, items }: HighlightBoxProps) {
             key={i}
             className="text-safe-wrap flex items-start gap-3 text-sm leading-7 text-muted-foreground"
           >
-            <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${config.textColor.replace("text-", "bg-")}`} />
+            <span className="mt-2 h-px w-3 shrink-0 bg-primary" />
             <RichText text={item} emphasizeLead={variant === "trouble"} autoTokens />
           </li>
         ))}

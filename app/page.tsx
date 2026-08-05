@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
+import { ApproachSection } from "@/components/approach-section"
 import { SkillsSection } from "@/components/skills-section"
 import { ExperienceSection } from "@/components/experience-section"
 import { ProjectsSection } from "@/components/projects-section"
@@ -18,7 +19,30 @@ import {
   type ProjectCardData,
 } from "@/lib/portfolio-data"
 
-const projectCards: ProjectCardData[] = projects.map(
+const prioritizedProjectSlugs = [
+  "fodro",
+  "skyautonet-lv4",
+  "scv",
+  "balemale",
+  "teamkai",
+  "aras",
+  "pathfinders",
+  "fire-detection-drone",
+  "divary",
+  "ivi-dashboard",
+] as const
+
+const projectPriority = new Map<string, number>(
+  prioritizedProjectSlugs.map((slug, index) => [slug, index]),
+)
+
+const orderedProjects = [...projects].sort(
+  (a, b) =>
+    (projectPriority.get(a.slug) ?? Number.MAX_SAFE_INTEGER) -
+    (projectPriority.get(b.slug) ?? Number.MAX_SAFE_INTEGER),
+)
+
+const projectCards: ProjectCardData[] = orderedProjects.map(
   ({
     id,
     slug,
@@ -58,9 +82,10 @@ export default function PortfolioPage() {
       <Navigation />
       <main id="main-content" tabIndex={-1}>
         <HeroSection profile={profile} />
-        <SkillsSection skills={skills} />
+        <ApproachSection />
         <ExperienceSection experiences={experiences} />
         <ProjectsSection projects={projectCards} categories={categories} />
+        <SkillsSection skills={skills} />
         <EducationSection
           education={education}
           awards={awards}

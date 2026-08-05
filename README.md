@@ -25,24 +25,26 @@ ROS2/Nav2 기반 실내 이동 로봇, Autoware 기반 자율주행, CAN/HILS �
 
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
-| **SCV** | 자연어 명령 기반 Smart Companion Vehicle | ROS2, Nav2, RoboCrew |
-| **Balemale** | AI 스마트 자율 주차 로봇 (18개 FSM, ArUco 28개 마커) | ROS2, YOLOv8, TensorRT |
-| **TeamKAI** | 자율주행 자작차 인지 파트장 | ROS, LiDAR, CAN |
-| **ARAS** | RC Car ADAS 시스템 (Fail-Safe 설계) | MQTT, OpenCV, RPi5 |
+| **[SCV](https://github.com/kngyeol/Project-SCV)** | 자연어 명령 기반 Smart Companion Vehicle | ROS2, Nav2, RoboCrew |
+| **[Balemale](https://github.com/kngyeol/Project-Balemale)** | AI 스마트 자율 주차 로봇 (18개 FSM, ArUco 28개 마커) | ROS2, YOLOv8, TensorRT |
+| **[TeamKAI](https://github.com/kngyeol/Project-TeamKAI)** | 자율주행 자작차 인지 파트장 | ROS, LiDAR, CAN |
+| **[ARAS](https://github.com/kngyeol/Project-ARAS)** | RC Car 주행 보조 시스템 (모드별 센서 fallback) | MQTT, OpenCV, RPi5 |
 
 ### AI / 컴퓨터비전
 
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
-| **Fire Detection Drone** | 화재/연기 탐지 (mAP50: 0.867) | YOLOv9, TensorRT |
-| **Divary** | 다이빙 로그북 AI 자동 생성 | YOLO-World, BioCLIP-2 |
-| **Korean VQA** | VLM 기반 4지선다 VQA | Qwen-VL, LoRA |
+| **[Fire Detection Drone](https://github.com/kngyeol/Project-FireDrone)** | 화재/연기 탐지 (mAP50: 0.867) | YOLOv9, TensorRT |
+| **[Divary](https://github.com/kngyeol/Project-DIVARY)** | 다이빙 로그북 AI 자동 생성 | YOLO-World, BioCLIP-2 |
+| **[Korean VQA](https://github.com/kngyeol/Project-Korean-VQA)** | VLM 기반 4지선다 VQA | Qwen-VL, LoRA |
 
 ### 임베디드 / FPGA
 
 | 프로젝트 | 설명 | 핵심 기술 |
 |---------|------|----------|
 | **ResNet50 MAC** | FPGA CNN 추론 가속기 | Verilog, AXI DMA |
+
+외부 링크는 공개 `Project-*` 소개 저장소만 사용합니다. 원본 소스 스냅샷은 비공개이며, 공개 소개 저장소의 다이어그램과 아티팩트는 코드 기여율을 대신하는 증빙이 아닙니다.
 
 ## 프로젝트 미리보기
 

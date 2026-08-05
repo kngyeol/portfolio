@@ -16,7 +16,7 @@ export function ProjectTable({ title, headers, rows }: ProjectTableProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className="rounded-xl border border-border bg-card p-5"
+      className="border-y border-border py-5"
     >
       <h3 className="mb-4 text-sm font-semibold text-foreground">{title}</h3>
       <div className="overflow-x-auto">

@@ -45,9 +45,9 @@ export function ContactSection({ profile }: { profile: Profile }) {
         >
           <motion.div variants={fadeInUp}>
             <SectionHeading
-              eyebrow="Contact"
-              title="다음 시스템을 함께 만들 준비가 되어 있습니다."
-              description="프로젝트 협업이나 채용 관련 문의는 아래 채널로 연락해 주세요."
+              eyebrow="05"
+              title="연락처"
+              description="채용 및 프로젝트 관련 연락은 이메일이나 GitHub로 부탁드립니다."
             />
           </motion.div>
 
@@ -61,7 +61,7 @@ export function ContactSection({ profile }: { profile: Profile }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex min-w-0 items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 shadow-[0_10px_30px_rgba(23,24,22,0.04)] transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-[0_16px_40px_rgba(23,24,22,0.08)]"
+                className="group flex min-h-20 min-w-0 items-center justify-between rounded-lg border border-border bg-card px-5 py-4 transition-colors hover:border-primary/40"
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
