@@ -604,7 +604,7 @@ export const projects: Project[] = [
       "fire: P 0.876 / R 0.828 / mAP50 0.881",
       "smoke: P 0.792 / R 0.814 / mAP50 0.854",
       "Lite-Mono 단안 깊이 추정으로 상대 거리 파악",
-      "Structured Pruning과 ONNX/TensorRT 변환 경로 구성 (detector 측정: RTX 4090 4.6ms, Jetson Orin PyTorch 약 212.9ms)",
+      "Structured Pruning과 ONNX/TensorRT 변환 경로 구성 (detector 측정: RTX 4090 batch 32에서 4.6ms, Jetson Orin batch 1에서 PyTorch 216.0ms → TensorRT 197.9ms)",
     ],
     role: ["전체"],
     techStack: ["YOLOv9", "Lite-Mono", "TensorRT", "Structured Pruning", "Jetson Orin", "Gradio"],
