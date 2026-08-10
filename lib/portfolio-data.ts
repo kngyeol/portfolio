@@ -606,7 +606,7 @@ export const projects: Project[] = [
       "Lite-Mono 단안 깊이 추정으로 상대 거리 파악",
       "Structured Pruning과 ONNX/TensorRT 변환 경로 구성 (detector 측정: RTX 4090 batch 32에서 4.6ms, Jetson Orin batch 1에서 PyTorch 216.0ms → TensorRT 197.9ms)",
     ],
-    role: ["전체"],
+    role: ["추론 결과 결합 로직", "Jetson 환경 구축", "엣지 최적화"],
     techStack: ["YOLOv9", "Lite-Mono", "TensorRT", "Structured Pruning", "Jetson Orin", "Gradio"],
     category: "AI / 컴퓨터비전",
     github: "https://github.com/kngyeol/Project-FireDrone",
@@ -633,7 +633,7 @@ export const projects: Project[] = [
       "Qwen3-VL + InternVL2 Routing Ensemble",
       "한→영 번역 파이프라인 (OPUS-MT)",
     ],
-    role: ["전체"],
+    role: ["실험 참여"],
     techStack: [
       "PyTorch",
       "Qwen2.5-VL",
